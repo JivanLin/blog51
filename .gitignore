@@ -1,20 +1,7 @@
-# Linux
-.DS_Store
-node_modules/
-dist/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-package-lock.json
-tests/**/coverage/
-.svn
-
-# Editor directories and files
-.idea
-.vscode
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.htaccess
+/.idea
+/.vscode
+/vendor
+*.log
+thinkphp
 .env
+.DS_Store
