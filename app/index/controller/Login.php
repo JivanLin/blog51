@@ -1,18 +1,17 @@
 <?php
 namespace app\index\controller;
 
-use think\Controller;
-
-class Index extends Controller
+class Login
 {
     public function index()
     {
-        return view('/index');
+        return view('login/login');
     }
 
     public function login()
     {
-        return '123';
+        $data = $_POST;
+        return json($data);
     }
 
 }
