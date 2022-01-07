@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$data.title|default='首页'}</title>
+    <link rel="stylesheet" href="__BOOTSTRAP__/css/bootstrap.min.css">
+    <script type="text/javascript" src="__STATIC__/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="__BOOTSTRAP__/js/bootstrap.min.js"></script>
+    <style>
+        .clearfix{clear: both}
+        .main-block{margin-bottom: 50px;}
+        .footer-block{position: absolute;bottom: 0;width: 100%;text-align: center;background-color: #222;color: #9d9d9d;padding: 15px;}
+    </style>
+    {block name="style"}{/block}
+</head>
+<body>
+    <header class="clearfix" id="header">
+        <nav class="navbar navbar-inverse navbar-static-top">
+            <div class="container">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="/">首页</a></li>
+                    <li><a href="#">关于我</a></li>
+                </ul>
+                <!--<ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">友情链接</a></li>
+                    <li><a href="#">关于我</a></li>
+                </ul>-->
+            </div>
+        </nav>
+    </header>
+
+    <div id="main" class="main-block container">
+        {block name="main"}{/block}
+    </div>
+
+    <div id="footer" class="footer-block">&copy;2022-01-06 个人网站</div>
+
+    <script>
+        $(function (){
+            $(window).bind("load",function(){
+                //底部浮动，计算高度
+                var footerHeight=0,
+                    footerTop=0,
+                    $footer=$('#footer');
+                positionFooter();
+                function positionFooter(){
+                    footerHeight=$footer.height();
+                    footerTop=($(window).scrollTop()+$(window).height()-50)+"px";
+                    if(($(document.body).height()+footerHeight)<$(window).height()){
+                        $footer.css({
+                            position:"absolute"
+                        }).stop().animate({
+                            top:footerTop,
+                        });
+                    }else{
+                        $footer.css({ position:"static" });
+                    }
+                }
+                $(window).scroll(positionFooter).resize(positionFooter);
+
+                //屏幕宽度，css更换展示
+                var bodyWidth = document.body.clientWidth;
+                if(bodyWidth <= 980) {
+                    $("#main").removeClass('container').addClass('container-fluid');
+                }
+            })
+        })
+    </script>
+    {block name="script"}{/block}
+</body>
+</html>

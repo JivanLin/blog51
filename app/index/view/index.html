@@ -1,10 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>个人首页</title>
-</head>
-<body>
-    B L O G 博客
-</body>
-</html>
+{extend name="index@public/base" /}
+
+{block name="style"}
+    <style>
+        .article{border: 1px solid #CCC;padding: 20px;border-radius: 10px}
+        .article .media{border: 1px solid #EEE;padding: 10px;border-radius: 5px;}
+        .article .media .media-object{width: auto;height: 100px;}
+        .article .media .media-body{height: 100px}
+        .article .media .media-body .describe-text{display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2;overflow: hidden;}
+        .article .media .media-body .describe-expand-left{float: left;color: #C9C5C5}
+        .article .media .media-body .describe-expand-right{float: right;color: #C9C5C5}
+        .describe-expand-left span,.describe-expand-right span{margin-right: 5px}
+    </style>
+{/block}
+
+{block name="main"}
+    <ol class="breadcrumb">
+        <li><a href="{:url('@index')}">首页</a></li>
+        <li class="active">最新文章</li>
+    </ol>
+
+    <div class="article">
+        {foreach list as $list}
+        <div class="media">
+            <div class="media-left">
+                <img class="media-object" src="{$list.image}">
+            </div>
+            <div class="media-body">
+                <h4 class="media-heading"><a href="{:url('index/index/details',['id' => $list.id])}">{$list.title}</a></h4>
+                <p class="describe-text">{$list.describe}</p>
+                <p class="describe-expand-left">
+                    <span class="glyphicon glyphicon-time" aria-hidden="true"></span>{$list.atime}&nbsp;&nbsp;
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>{$list.nickname}&nbsp;&nbsp;
+                </p>
+                <p class="describe-expand-right">
+                    <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>{$list.browse}&nbsp;&nbsp;
+                    <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>{$list.praise}&nbsp;&nbsp;
+                    <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>{$list.comment}&nbsp;&nbsp;
+                </p>
+            </div>
+        </div>
+        {/foreach}
+    </div>
+{/block}
+
+{block name="script"}{/block}
