@@ -36,6 +36,7 @@ return [
     'tpl_replace_string'  =>  [
         '__STATIC__'=>'/static',
         '__LAYUI__'=>'/layui-v2.6.8',
+        '__LAYUI_ADMIN__'=>'/layuiadmin',
         '__BOOTSTRAP__'=>'/bootstrap-3.4.1',
     ]
 ];

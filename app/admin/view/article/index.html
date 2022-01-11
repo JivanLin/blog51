@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="__LAYUI__/css/layui.css" media="all">
+    <link rel="stylesheet" href="__LAYUI_ADMIN__/iframe/style/admin.css" media="all">
+    <link rel="stylesheet" href="__LAYUI_ADMIN__/iframe/style/font-awesome.min.css" media="all">
+</head>
+<body>
+    <div class="layui-fluid">
+        <div class="layui-card">
+            <div class="layui-card-header">
+                <button type="button" class="layui-btn layui-btn-sm">发表文章</button>
+            </div>
+            <div class="layui-card-body">
+                <table id="article" lay-filter="article"></table>
+            </div>
+        </div>
+    </div>
+
+    <script src="__LAYUI__/layui.js"></script>
+    <script>
+        function DateTime(/** timestamp=0 **/) {
+            var ts = arguments[0] || 0;
+            var t,y,m,d,h,i,s;
+            t = ts ? new Date(ts*1000) : new Date();
+            y = t.getFullYear();
+            m = t.getMonth()+1;
+            d = t.getDate();
+            h = t.getHours();
+            i = t.getMinutes();
+            s = t.getSeconds();
+            // 可依据须要在这里定义时间格式
+            return y+'-'+(m<10?'0'+m:m)+'-'+(d<10?
+                '0'+d:d)+' '+(h<10?'0'+h:h)+':'+(i<10?'0'+i:i)+':'+(s<10?'0'+s:s);
+        }
+
+        layui.use(['table'], function(){
+            var table = layui.table;
+
+            //第一个实例
+            table.render({
+                elem: "#article"
+                // ,height: 312
+                // ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，
+                ,url: "{:url('@admin/article/articleList')}" //数据接口
+                ,cols: [[ //表头
+                    {field: 'id', title: 'ID', width: 80}
+                    ,{field: 'nickname', title: '作者', width: 80}
+                    ,{field: 'title', title: '标题', width: 120}
+                    ,{field: 'describe', title: '描述', width: 150}
+                    ,{field: 'atime', title: '发表时间', width: 150}
+                ]]
+                ,page: {
+                    layout: [ 'prev', 'page', 'next', 'skip' ,'count']
+                    ,limit:15
+                }
+                ,parseData: function(res){
+                    console.log(res);
+                    var list = res.list
+                    for(var i=0;i<list.length;i++){
+                        list[i].atime = DateTime(list[i].atime)
+                    }
+                    return {
+                        "code": 0,
+                        'msg': "获取数据成功！",
+                        "count": res.total,
+                        "data": res.list
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

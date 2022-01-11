@@ -1,10 +1,14 @@
 <?php
-namespace app\index\controller;
+namespace app\admin\controller;
 
 class Index
 {
+    public function console(){
+        return view('/console');
+    }
+
     public function index()
     {
-        return 'a d m i n 后台';
+        return view('/index');
     }
 }
