@@ -1,6 +1,8 @@
 <?php
 namespace app\admin\controller;
 
+use think\facade\Request;
+
 class Article
 {
     public function index()
@@ -10,7 +12,8 @@ class Article
 
     public function articleList()
     {
-        $articleList = model('Article')->articleList();
+        $params = $_GET;
+        $articleList = model('Article')->articleList($params);
         return json($articleList);
     }
 }
