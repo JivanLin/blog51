@@ -16,4 +16,9 @@ class Article
         $articleList = model('Article')->articleList($params);
         return json($articleList);
     }
+
+    public function addArticle()
+    {
+        return view('article/opt_article');
+    }
 }
