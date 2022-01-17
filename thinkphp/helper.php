@@ -413,6 +413,36 @@ if (!function_exists('input')) {
     }
 }
 
+if (!function_exists('success')) {
+    function success($data = array(), $msg = ''){
+        $out = array(
+            'state' => 1,
+            'data'  => $data,
+            'msg'  => $msg,
+        );
+        return $out;
+    }
+}
+if (!function_exists('fail')) {
+    function fail($msg = '', $data = array()){
+        $out = array(
+            'state' => 0,
+            'msg'  => $msg,
+            'data'  => $data,
+        );
+        return $out;
+    }
+}
+if (!function_exists('retData')){
+    function retData($code = 0, $msg = '', $data = array()){
+        if($code === 1){
+            return success($data,$msg);
+        }else{
+            return fail($msg,$data);
+        }
+    }
+}
+
 if (!function_exists('json')) {
     /**
      * 获取\think\response\Json对象实例
