@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="__BOOTSTRAP__/css/bootstrap.min.css">
+    <link rel="stylesheet" href="__LAYUI__/style/font-awesome.min.css" media="all">
+    <script type="text/javascript" src="__STATIC__/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="__BOOTSTRAP__/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/function.js"></script>
+    <style>
+        /** 初始化 **/
+        body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, input, button, textarea, p, blockquote, th, td, form, pre { margin: 0; padding: 0; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
+        a:active, a:hover { outline: 0 }
+        img { display: inline-block; border: none; vertical-align: middle; }
+        li { list-style: none; }
+        table { border-collapse: collapse; border-spacing: 0; }
+        h1, h2, h3 { font-weight: 400; }
+        h4, h5, h6 { font-size: 100%; font-weight: 400; }
+        button, input, select, textarea { font-size: 100%; }
+        input, button, textarea, select, optgroup, option { font-family: inherit; font-size: inherit; font-style: inherit; font-weight: inherit; outline: 0; }
+        pre { white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word; }
+
+        /** 初始化全局标签 **/
+        body { line-height: 1.6; color: #333; color: rgba(0, 0, 0, .85); font: 14px Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial, sans-serif; }
+        hr { height: 0; line-height: 0; margin: 10px 0; padding: 0; border: none !important; border-bottom: 1px solid #eee !important; clear: both; overflow: hidden; background: none; }
+        a {text-decoration: none;}
+        a:hover,a:active {text-decoration: none;}
+        .clearfix{clear: both}
+        #main{padding: 20px;background-color: #eaeaea}
+        .article{margin: 30px;position: relative;border: 1px solid #ddd;border-top: 1px solid #fff;border-bottom: 1px solid #fff;background: #fff;}
+        .article header{border-left: 4px solid #4d4d4d;padding: 20px 10px 10px 40px;}
+        .article header .article-title{color: #696969;font-weight: 300;line-height: 35px;margin-bottom: 20px;font-size: 26px;}
+        .article header time{color: #999;margin-right: 40px;margin-top: -20px;float: right;}
+        .article article{line-height: 1.8em;padding: 0 30px;font-size: 1.2em}
+        .article article p{margin: 10px 0;}
+        .article footer{padding-top: 20px;margin: 20px 30px 10px;min-height: 72px;border-top: 1px solid #ddd;}
+        .article footer div a,.article footer div i{font-size: 1.1em;color: #337ab7}
+        .article footer div i{padding: 0 10px;}
+    </style>
+</head>
+<body>
+    <div id="main" class="container">
+        <div><a href="/notepad"><i class="fa fa-reply-all"></i> 返回</a></div>
+        <div class="article">
+            <header>
+                <h1 class="article-title">{$data.title}</h1>
+                <time id="article-time"><i class="fa fa-calendar" aria-hidden="true"> {$data.create_time}</i></time>
+            </header>
+            <article>
+                {$data.content|raw}
+            </article>
+            <footer>
+                {notempty name="prev"}<div class="text-left"><i class="fa fa-arrow-circle-o-left"></i><a href="{:url('/notepad/index/noteDetails', ['id'=>$prev.id])}">{$prev.title}</a></div>{/notempty}
+                {notempty name="next"}<div class="text-right"><a href="{:url('/notepad/index/noteDetails', ['id'=>$next.id])}">{$next.title}</a><i class="fa fa-arrow-circle-o-right"></i></div>{/notempty}
+                <div class="clearfix"></div>
+            </footer>
+        </div>
+    </div>
+</body>
+</html>

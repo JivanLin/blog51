@@ -1,16 +1,17 @@
 <?php
 namespace app\admin\controller;
 
+use app\admin\model\ModArticle;
 use think\Request;
 
-class Article
+class CtlArticle
 {
     public $request;
 
     public function __construct()
     {
         $this->request = new Request();
-        $this->mod = model('Article');
+        $this->mod = new ModArticle();
     }
 
     public function index()
@@ -24,8 +25,8 @@ class Article
             'page' => $this->request->param('page', 1),
             'limit' => $this->request->param('limit', 15),
         ];
-        $articleList = $this->mod->articleList($params);
-        return $articleList;
+        $list = $this->mod->articleList($params);
+        return $list;
     }
 
     public function addArticle()

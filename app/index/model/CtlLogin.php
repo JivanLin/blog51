@@ -1,7 +1,7 @@
 <?php
 namespace app\index\model;
 
-class Login
+class CtlLogin
 {
     public function index()
     {

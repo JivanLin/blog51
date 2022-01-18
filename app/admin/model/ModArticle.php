@@ -1,16 +1,16 @@
 <?php
 namespace app\admin\model;
 
-use think\Model;
+use think\Db;
 
-class Article extends Model
+class ModArticle
 {
     public function articleList($params)
     {
         $params['page'] < 0 && $params['page'] = 1;
 
-        $sql = $this->db('article')->alias('a')->leftJoin('user b','a.uid = b.uid');
-        $count = $this->db('article')->count();
+        $sql = Db::name('article')->alias('a')->leftJoin('user b','a.uid = b.uid');
+        $count = Db::name('article')->count();
 //        if($params['id']) {
 //            $sql = $sql->where('id','=',$params['id']);
 //        }
@@ -25,7 +25,7 @@ class Article extends Model
 
     public function getArticle($params)
     {
-        return $this->db('article')->where('id','=',$params['id'])->find();
+        return Db::name('article')->where('id','=',$params['id'])->find();
     }
 
     public function addArticleAction($params)
@@ -34,8 +34,8 @@ class Article extends Model
         if($res) {
             $id = $params['id'];
             unset($params['id']);
-            return $this->db('article')->where(['id' => $id])->update($params);
+            return Db::name('article')->where(['id' => $id])->update($params);
         }
-        return $this->db('article')->insert($params);
+        return Db::name('article')->insert($params);
     }
 }

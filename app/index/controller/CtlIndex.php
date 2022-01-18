@@ -1,14 +1,19 @@
 <?php
 namespace app\index\controller;
 
-use think\Controller;
+use app\index\model\ModIndex;
 use think\Request;
 
-class Index extends Controller
+class CtlIndex
 {
+    public function __construct()
+    {
+        $this->mod = new ModIndex();
+    }
+
     public function index()
     {
-        $articleList = model('Index')->articleList();
+        $articleList = $this->mod->articleList();
         $out = [
             'list' => $articleList,
         ];
@@ -18,9 +23,9 @@ class Index extends Controller
     public function details(Request $request)
     {
         $article_id = $request->param('id');
-        $details = model('Index')->articleDetails($article_id);
-        $other = model('Index')->articleOther($article_id);
-        $comment = model('Index')->articleComment($article_id);
+        $details = $this->mod->articleDetails($article_id);
+        $other = $this->mod->articleOther($article_id);
+        $comment = $this->mod->articleComment($article_id);
         $out = [
             'data' => $details,
             'other' => $other,
@@ -36,7 +41,7 @@ class Index extends Controller
             'content' => $request->param('content'),
             'atime' => time(),
         ];
-        $ret = model('Index')->commentPublish($params);
+        $ret = $this->mod->commentPublish($params);
         if($ret) {
             return $this->success('评论成功');
         } else {

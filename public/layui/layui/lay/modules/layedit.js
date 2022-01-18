@@ -396,6 +396,7 @@ layui.define(['layer', 'form'], function(exports){
                                     insertInline.call(iframeWin, 'img', {
                                         src: res.data.src
                                         ,alt: res.data.title
+                                        ,style: "max-width:60%"
                                     }, range);
                                 } else {
                                     layer.msg(res.msg||'上传失败');

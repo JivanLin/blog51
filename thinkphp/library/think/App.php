@@ -638,6 +638,8 @@ class App extends Container
      */
     protected function parseModuleAndClass($name, $layer, $appendSuffix)
     {
+//        $name = 'Ctl'.$name;
+
         if (false !== strpos($name, '\\')) {
             $class  = $name;
             $module = $this->request->module();
@@ -805,7 +807,7 @@ class App extends Container
         $class = Loader::parseName(array_pop($array), 1) . ($this->suffix || $appendSuffix ? ucfirst($layer) : '');
         $path  = $array ? implode('\\', $array) . '\\' : '';
 
-        return $this->namespace . '\\' . ($module ? $module . '\\' : '') . $layer . '\\' . $path . $class;
+        return $this->namespace . '\\' . ($module ? $module . '\\' : '') . $layer . '\\' . $path . 'Ctl' .$class;
     }
 
     /**

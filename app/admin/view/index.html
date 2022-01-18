@@ -22,9 +22,15 @@
                         </a>
                     </li>
                     <li class="layui-nav-item layui-hide-xs" lay-unselect>
-                        <a href="/" target="_blank" title="博客首页">
+                        <a href="/index" target="_blank" title="博客首页">
                             <i class="layui-icon layui-icon-website"></i>
                             <cite>博客首页</cite>
+                        </a>
+                    </li>
+                    <li class="layui-nav-item layui-hide-xs" lay-unselect>
+                        <a href="/notepad" target="_blank" title="笔记日志">
+                            <i class="layui-icon layui-icon-website"></i>
+                            <cite>笔记日志</cite>
                         </a>
                     </li>
                 </ul>
@@ -67,7 +73,7 @@
                             </a>
                             <dl class="layui-nav-child">
                                 <dd data-name="" class="">
-                                    <a lay-href="{:url('@admin/article/index')}">
+                                    <a lay-href="{:url('@admin/notepad/index')}">
                                         <i class="fa fa-book" style="font-size:12px;">&nbsp;&nbsp;日记列表单</i>
                                     </a>
                                 </dd>

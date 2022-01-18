@@ -4,7 +4,7 @@ namespace app\index\model;
 use think\Db;
 use think\Model;
 
-class Index extends Model
+class ModIndex extends Model
 {
     public function articleList()
     {
