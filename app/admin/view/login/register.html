@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="__LAYUI__/layui-v2.6.8/css/layui.css" media="all">
+    <link rel="stylesheet" href="__LAYUI__/style/admin.css" media="all">
+    <link rel="stylesheet" href="__LAYUI__/style/login.css" media="all">
+    <script type="text/javascript" src="__STATIC__/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/function.js"></script>
+    <script type="text/javascript" src="__LAYUI__/layui/layui.js"></script>
+</head>
+<body>
+    <div class="layadmin-user-login layadmin-user-display-show" id="LAY-user-login" style="display: none;">
+        <div class="layadmin-user-login-main">
+            <form>
+                <div class="layadmin-user-login-box layadmin-user-login-body layui-form">
+                    <div class="layui-form-item">
+                        <label class="layadmin-user-login-icon layui-icon layui-icon-username" for="LAY-user-login-username"></label>
+                        <input type="text" name="username" id="LAY-user-login-username" lay-verify="required" placeholder="用户名" class="layui-input">
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layadmin-user-login-icon layui-icon layui-icon-password" for="LAY-user-login-password"></label>
+                        <input type="password" name="password" id="LAY-user-login-password" lay-verify="required" placeholder="密码" class="layui-input">
+                    </div>
+                    <div class="layui-form-item">
+                        <input type="button" class="layui-btn layui-btn-fluid" lay-submit lay-filter="LAY-user-register-submit" value="注 册"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        layui.use(['form'], function() {
+            var form = layui.form;
+            form.on('submit(LAY-user-register-submit)', function (obj) {
+                var data = $('form').serialize();
+                $.post('/admin/login/registerAction', {data: data}, function (res) {
+                    layer.open({
+                        type: 1,
+                        title:false,
+                        closeBtn: 0,
+                        shadeClose: true,
+                        content:'<p style="margin:15px 30px;">'+res.msg+'</p>',
+                        end:function(){
+                            if(res.state){
+                                //注册成功跳转登录
+                                location.href = "/admin/login";
+                            }
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
