@@ -1,46 +1,54 @@
-{extend name="index@public/base" /}
-
-{block name="style"}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="__STATIC__/normalize.css">
+    <script type="text/javascript" src="__STATIC__/jquery-3.1.1.min.js"></script>
     <style>
-        .article{border: 1px solid #CCC;padding: 20px;border-radius: 10px}
-        .article .media{border: 1px solid #EEE;padding: 10px;border-radius: 5px;}
-        .article .media .media-object{width: auto;height: 100px;}
-        .article .media .media-body{height: 100px}
-        .article .media .media-body .describe-text{display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2;overflow: hidden;}
-        .article .media .media-body .describe-expand-left{float: left;color: #C9C5C5}
-        .article .media .media-body .describe-expand-right{float: right;color: #C9C5C5}
-        .describe-expand-left span,.describe-expand-right span{margin-right: 5px}
+        body {
+            background-color: #f5f6f7;
+            color: #000;
+            font-size: 1em;
+            line-height: 1.5;
+            font-family: UbuntuMono,"Varela Round","PingFang SC","Microsoft YaHei",Helvetica,Arial,Menlo,Monaco,monospace,sans-serif;
+            overflow: hidden;
+        }
     </style>
-{/block}
+</head>
+<body>
+    <div style="display: flex;">
+        <div class="left-side" style="width: calc(100/12*1.5%);height: 100px;background-color: #008800;">
 
-{block name="main"}
-    <ol class="breadcrumb">
-        <li><a href="{:url('@index')}">首页</a></li>
-        <li class="active">最新文章</li>
-    </ol>
-
-    <div class="article">
-        {foreach list as $list}
-        <div class="media">
-            <div class="media-left">
-                <img class="media-object" src="{$list.image}">
-            </div>
-            <div class="media-body">
-                <h4 class="media-heading"><a href="{:url('index/index/details',['id' => $list.id])}">{$list.title}</a></h4>
-                <p class="describe-text">{$list.describe}</p>
-                <p class="describe-expand-left">
-                    <span class="glyphicon glyphicon-time" aria-hidden="true"></span>{$list.atime}&nbsp;&nbsp;
-                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>{$list.nickname}&nbsp;&nbsp;
-                </p>
-                <p class="describe-expand-right">
-                    <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>{$list.browse}&nbsp;&nbsp;
-                    <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>{$list.praise}&nbsp;&nbsp;
-                    <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>{$list.comment}&nbsp;&nbsp;
-                </p>
-            </div>
         </div>
-        {/foreach}
-    </div>
-{/block}
+        <div class="main" style="width: calc(100/12*8.5%);height: 100px;background-color: #f0ad4e;margin: 20px;">
+            <div class="main-searchBar" style=""></div>
+            <div class="main-content">
+                <div class="profile">
+                    <div class="profile-banner"></div>
+                    <div class="profile-avatar"></div>
+                    <div class="profile-author"></div>
+                </div>
+                <div class="essay-list">
+                    <div class="essay-list-item">
+                        <div class="essay-list-item-card">
+                            <div class="a-link"><a href=""></a></div>
+                            <div class="item-card-desc"></div>
+                            <div class="item-card-actions"></div>
+                        </div>
+                        <!--*N-->
+                    </div>
+                    <div class="essay-list-page"></div>
+                </div>
+            </div>
+            <div class="footer"></div>
+        </div>
+        <div class="sideBar" style="width: calc(100/12*2%);height: 100px;background-color: #2D93CA;">
 
-{block name="script"}{/block}
+        </div>
+    </div>
+</body>
+</html>
