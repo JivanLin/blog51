@@ -347,6 +347,9 @@ a:hover {
 a:active {
   color: #fff;
 }
+a, a:hover, a:link, a:visited {
+  text-decoration: none !important;
+}
 
 input::-ms-clear {
   display: none;
