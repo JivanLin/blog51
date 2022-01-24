@@ -3,7 +3,7 @@ namespace app\admin\service;
 
 use app\admin\model\ModLogin;
 define("COOKIE_ADMIN_DOMAIN",$_SERVER['SERVER_NAME']);
-class SrvLogin
+class SrvAuth
 {
     public static $id = '';
     public static $user = '';
@@ -178,6 +178,11 @@ class SrvLogin
         self::$id = '';
         self::$user = '';
         self::$nick = '';
+    }
+
+    public function getNav()
+    {
+
     }
 
 }

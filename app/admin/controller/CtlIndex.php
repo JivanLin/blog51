@@ -1,7 +1,7 @@
 <?php
 namespace app\admin\controller;
 
-use app\admin\service\SrvLogin;
+use app\admin\service\SrvAuth;
 use think\Controller;
 
 class CtlIndex extends Controller
@@ -15,7 +15,8 @@ class CtlIndex extends Controller
     public function index()
     {
         $out['__title__'] = '后台管理';
-        $out['user'] = SrvLogin::get_cookie('user', true);
+        $out['user'] = SrvAuth::get_cookie('user', true);
+        $out['__menu__'] = SrvAuth::getNav();
         return view('/index', $out);
     }
 }

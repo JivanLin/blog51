@@ -1,7 +1,7 @@
 <?php
 namespace app\admin\controller;
 
-use app\admin\service\SrvLogin;
+use app\admin\service\SrvAuth;
 use think\Request;
 
 class CtlLogin
@@ -9,7 +9,7 @@ class CtlLogin
     public function __construct()
     {
         $this->request = new Request();
-        $this->srv = new SrvLogin();
+        $this->srv = new SrvAuth();
     }
 
     public function index()

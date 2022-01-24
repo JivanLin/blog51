@@ -2,14 +2,17 @@
 namespace app\admin\controller;
 
 use app\admin\model\ModArticle;
+use think\Controller;
 use think\Request;
 
-class CtlArticle
+class CtlArticle extends Controller
 {
+    protected $middleware = ['admin'];
     public $request;
-
+    public $mod;
     public function __construct()
     {
+        parent::__construct();
         $this->request = new Request();
         $this->mod = new ModArticle();
     }
