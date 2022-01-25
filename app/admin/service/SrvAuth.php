@@ -180,9 +180,58 @@ class SrvAuth
         self::$nick = '';
     }
 
-    public function getNav()
+    public static function getNav()
     {
-
+        return array(
+            array(
+                'title' => '随笔日志',
+                'icon' => 'stack-exchange',
+                'href' => '',
+                'spread' => true,
+                'children' => array(
+                    array(
+                        'title' => '日记列表单',
+                        'icon' => 'book',
+                        'href' => '/admin/platform/essay',
+                        'spread' => false,
+                    ),
+                    array(
+                        'title' => '日记评论表',
+                        'icon' => 'book',
+                        'href' => '',
+                        'spread' => false,
+                    ),
+                )
+            ),
+            array(
+                'title' => '个人记事本',
+                'icon' => 'stack-exchange',
+                'href' => '',
+                'spread' => false,
+                'children' => array(
+                    array(
+                        'title' => '日记列表单',
+                        'icon' => 'book',
+                        'href' => '/admin/notepad/index',
+                        'spread' => false,
+                    ),
+                )
+            ),
+            array(
+                'title' => '博客交互',
+                'icon' => 'stack-exchange',
+                'href' => '',
+                'spread' => false,
+                'children' => array(
+                    array(
+                        'title' => '文章发表',
+                        'icon' => 'book',
+                        'href' => '/admin/article/index',
+                        'spread' => false,
+                    ),
+                )
+            ),
+        );
     }
 
 }

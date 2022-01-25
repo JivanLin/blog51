@@ -66,32 +66,26 @@
                     </div>
 
                     <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu" lay-filter="layadmin-system-side-menu">
+                        {volist name="__menu__" id="list"}
+                        {if $list.spread}
                         <li class="layui-nav-item layui-nav-itemed">
-                            <a href="javascript:;" lay-direction="2">
-                                <i class="fa fa-stack-exchange">&nbsp;&nbsp;<cite>个人记事本</cite></i>
-                                <span class="layui-nav-more"></span>
-                            </a>
-                            <dl class="layui-nav-child">
-                                <dd data-name="" class="">
-                                    <a lay-href="{:url('@admin/notepad/index')}">
-                                        <i class="fa fa-book" style="font-size:12px;">&nbsp;&nbsp;日记列表单</i>
-                                    </a>
-                                </dd>
-                            </dl>
-                        </li>
+                            {else /}
                         <li class="layui-nav-item">
+                        {/if}
                             <a href="javascript:;" lay-direction="2">
-                                <i class="fa fa-stack-exchange">&nbsp;&nbsp;<cite>博客交互</cite></i>
+                                <i class="fa fa-{$list.icon}">&nbsp;&nbsp;<cite>{$list.title}</cite></i>
                                 <span class="layui-nav-more"></span>
                             </a>
                             <dl class="layui-nav-child">
-                                <dd data-name="" class="">
-                                    <a lay-href="{:url('@admin/article/index')}">
-                                        <i class="fa fa-book" style="font-size:12px;">&nbsp;&nbsp;文章发表</i>
-                                    </a>
-                                </dd>
+                                {foreach $list.children as $children}
+                                    <dd data-name="" class="">
+                                        <a lay-href="{$children.href}">
+                                            <i class="fa fa-{$children.icon}" style="font-size:12px;">&nbsp;&nbsp;{$children.title}</i>
+                                        </a>
+                                    </dd>
+                                {/foreach}
                             </dl>
-                        </li>
+                        {/volist}
                     </ul>
                 </div>
             </div>

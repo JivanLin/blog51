@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>{$__title__}</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -83,6 +83,18 @@
             background-size: cover;
             background-repeat: no-repeat;
         }
+        .main-content .profile .profile-menu{
+            display: flex;
+            padding-left: 185px;
+            background: #f8f8f8;
+            border-radius: 0 0 4px 4px;
+        }
+        .main-content .profile .profile-menu a {
+            padding: 12px 16px;
+            color: #333;
+            cursor: pointer;
+            font-size: 14px;
+        }
         .main-content .profile .profile-blur {
             position: absolute;
             left: 0;
@@ -160,6 +172,14 @@
                 left: 114px;
                 bottom: 62px;
             }
+            .main-content .profile .profile-menu {
+                padding: 0 30px;
+                overflow: auto;
+                font-size: 14px;
+            }
+            .main-content .profile .profile-menu a {
+                padding: 10px 8px;
+            }
         }
 
         .main-content .essay-detail{
@@ -227,6 +247,10 @@
         <div class="main-content">
             <div class="profile">
                 <div class="profile-banner"></div>
+                <div class="profile-menu">
+                    <a target="_blank" href="#">收藏</a>
+                    <a target="_blank" href="#">闪存</a>
+                </div>
                 <div class="profile-blur"></div>
                 <div class="profile-avatar">
                     <img src="__STATIC__/images/avatar.jpg" alt="">
@@ -245,18 +269,15 @@
             <div class="essay-detail">
                 <div id="topics">
                     <h1 class="topics-title">
-                        <a href="#"><span>uni-ui组件库的基本介绍和使用</span></a>
+                        <a href="/index/index/essay?id={$data.id}"><span>{$data.title}</span></a>
                     </h1>
                     <div class="topics-body">
                         <div class="topics-body-main">
-                            摘要： https://uniapp.dcloud.io/component/README?id=uniui 简介 uni ui是DCloud提供的一个跨端ui库，它是基于vue组件的、flex布局的、无dom的跨全端ui框架。 uni ui不包括基础组件， 它是基础组件的补充 。 相关组件 | 组件名 |<br>
-                            摘要： https://uniapp.dcloud.io/component/README?id=uniui 简介 uni ui是DCloud提供的一个跨端ui库，它是基于vue组件的、flex布局的、无dom的跨全端ui框架。 uni ui不包括基础组件， 它是基础组件的补充 。 相关组件 | 组件名 |<br>
-                            摘要： https://uniapp.dcloud.io/component/README?id=uniui 简介 uni ui是DCloud提供的一个跨端ui库，它是基于vue组件的、flex布局的、无dom的跨全端ui框架。 uni ui不包括基础组件， 它是基础组件的补充 。 相关组件 | 组件名 |<br>
-                            <div style="height: 400px;"></div>
+                            {$data.content|raw}
                         </div>
                         <div class="topics-body-signature">
                             <p>本文作者：linxiaohei</p>
-                            <p>本文链接：https://www.cnblogs.com/makalochen/p/14554916.html</p>
+                            <p>本文链接：{$__link__}</p>
                             <!--<p>版权声明：本作品采用知识共享署名-非商业性使用-禁止演绎 2.5 中国大陆<a href="">许可协议</a>进行许可。</p>-->
                         </div>
                     </div>

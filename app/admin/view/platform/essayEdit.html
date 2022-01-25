@@ -1,0 +1,127 @@
+{include file="public/head"}
+<style>
+
+</style>
+    <div class="layui-fluid">
+        <div class="layui-card my-card">
+            <form class="layui-form my-layui-form layui-card-body" lay-filter="layuiadmin-form-useradmin" id="layuiadmin-form-useradmin">
+                <input type="text" class="layui-input" style="display: none" name="id" value="{$data.id|default = 0}">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">* 标题：</label>
+                    <div class="layui-input-inline" style="width: 420px">
+                        <input type="text" class="layui-input" autocomplete="off" name="title" value="{$data.title|default = ''}" lay-verify="required">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">* 标签：</label>
+                    <div class="layui-input-block" style="width: 180px">
+                        <select name="tags">
+                            <option value="">选择随笔标签</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">* 摘要：</label>
+                    <div class="layui-input-inline" style="width: 60%;height: 100px;">
+                        <textarea name="abstract" placeholder="请输入内容" class="layui-textarea" value="{$data.abstract|default = ''}"></textarea>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">* 内容：</label>
+                    <div class="layui-input-inline" style="width: 60%;min-height: 320px;">
+                        <textarea id="content" name="content" style="display: none;" lay-verify="required"></textarea>
+                    </div>
+                </div>
+
+                <div class="layui-form-item layui-layout-admin">
+                    <div class="layui-input-block">
+                        <div class="layui-footer" style="left: 0;">
+                            <button type="button" id="submit" class="layui-btn layui-btn-sm"  lay-submit lay-filter="formDemo"> 保 存 </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        var h = 0;
+        function resize(){
+            h=window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+            document.getElementById("layuiadmin-form-useradmin").style.height = h-70 +"px";
+            window.onresize = function(){
+                h=window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+                document.getElementById("layuiadmin-form-useradmin").style.height = h-70+"px";
+            }
+        }
+        resize();
+
+        layui.use(['table','form','layedit'], function(){
+            var table = layui.table,
+                form = layui.form,
+                layedit = layui.layedit;
+
+            //富文本编辑器 layui.layedit
+            $("#content").val('{$data.content|default = ""|raw}'); //先赋值再创建
+            layedit.set({
+                uploadImage: {
+                    url: "/admin/upload/uploadImage" //接口url
+                    ,type: "post" //默认post
+                }
+            });
+            var content = layedit.build('content', {
+                height: h-380
+                ,tool: [
+                    'strong', 'italic', 'underline', 'del'
+                    ,'|'
+                    ,'left', 'center', 'right'
+                    ,'|'
+                    ,'link', 'unlink', 'face', 'image'
+                    ,'|'
+                    ,'code'
+                ]
+            });
+
+            //标签下拉选择框
+            $.get('/admin/platform/essayTags',function (res){
+                let tagsMap = res.data;
+                var tags = $('select[name=tags]');
+                for(var key in tagsMap) {
+                    tags.append('<option value="' + key + '"> ' + tagsMap[key] + '</option>');
+                }
+                form.render('select');
+            })
+
+            //监听提交
+            form.on('submit(formDemo)', function(data){
+                data.field.content = layedit.getContent(content);
+                delete data.field.file; //参数为layedit编辑器自带
+                // console.log(data.field);
+                $.ajax({
+                    url: "/admin/platform/essayEditAction"
+                    ,type: "POST"
+                    ,data: data.field
+                    ,dataType: "json"
+                    ,async: false
+                    ,success: function (re){
+                        layer.open({
+                            type: 1,
+                            title:false,
+                            closeBtn: 0,
+                            shadeClose: true,
+                            content:'<p style="margin:15px 30px;">'+re.msg+'</p>',
+                            end:function(){
+                                if(re.state){
+                                    var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                                    parent.layer.close(index); //再执行关闭
+                                    parent.window.location.reload();
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+
+        });
+    </script>
+{include file="public/foot"}

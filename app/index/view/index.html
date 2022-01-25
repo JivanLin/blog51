@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="stylesheet" href="__STATIC__/normalize.css">
+    <link rel="stylesheet" href="__LAYUI__/style/font-awesome.min.css" media="all">
     <script type="text/javascript" src="__STATIC__/jquery-3.1.1.min.js"></script>
     <style>
         body {
@@ -237,6 +238,9 @@
             align-items: center;
             margin-right: 10px;
         }
+        .item-card .item-card-actions div i{
+            margin-right: 4px;
+        }
         .item-card .item-card-actions a:first-of-type {
             margin-left: auto;
             margin-right: 10px;
@@ -264,6 +268,44 @@
             color: #5c5e6e;
             font-size: 13px;
         }
+
+        .essay-list-page {
+            text-align: center;
+        }
+        .essay-list-page .pagination {
+            display: inline-block;
+            padding-left: 0;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .essay-list-page .pagination>li {
+            display: inline;
+        }
+
+        .essay-list-page .pagination>li:first-child>a, .essay-list-page .pagination>li:first-child>span {
+            margin-left: 0;
+            border-top-left-radius: 4px;
+            border-bottom-left-radius: 4px;
+        }
+        .essay-list-page .pagination>li>a, .essay-list-page .pagination>li>span {
+            position: relative;
+            float: left;
+            padding: 6px 12px;
+            margin-left: -1px;
+            line-height: 1.42857143;
+            color: #337ab7;
+            text-decoration: none;
+            background-color: #fff;
+            border: 1px solid #ddd;
+        }
+        .essay-list-page .pagination>li>a:hover{
+            background-color: rgba(0,0,0,0.08);
+        }
+        .essay-list-page .pagination .active span {
+            background-color: #337ab7;
+            color: #FFF;
+        }
+
 
     </style>
 </head>
@@ -297,158 +339,27 @@
                 </div>
                 <div class="essay-list">
                     <div class="essay-list-item">
+                        {volist name="list" id="item"}
                         <div class="item-card">
-                            <a href="#"><div class="item-card-title">uni-ui组件库的基本介绍和使用</div></a>
+                            <a href="/index/index/essay?id={$item.id}"><div class="item-card-title">{$item.title}</div></a>
                             <div class="item-card-desc">
                                 <p class="i_c_d_p">
-                                    摘要： https://uniapp.dcloud.io/component/README?id=uniui 简介 uni ui是DCloud提供的一个跨端ui库，它是基于vue组件的、flex布局的、无dom的跨全端ui框架。 uni ui不包括基础组件， 它是基础组件的补充 。 相关组件 | 组件名 |
+                                    摘要： {$item.abstract}
                                 </p>
                             </div>
                             <div class="item-card-actions">
-                                <div>浏览</div>
-                                <div>评论</div>
-                                <div>点赞</div>
-                                <a href="#"><button>阅读</button></a>
+                                <div><i class="fa fa-eye"></i>{$item.browse}</div>
+                                <div><i class="fa fa-commenting-o"></i>{$item.comment}</div>
+                                <div><i class="fa fa-thumbs-o-up"></i>{$item.praise}</div>
+                                <a href="/index/index/essay?id={$item.id}"><button>阅读</button></a>
                                 <a href="#"><button>编辑</button></a>
                             </div>
                         </div>
-                        <div class="item-card">
-                            <a href="#"><div class="item-card-title">uni-ui组件库的基本介绍和使用</div></a>
-                            <div class="item-card-desc">
-                                <p class="i_c_d_p">
-                                    摘要： https://uniapp.dcloud.io/component/README?id=uniui 简介 uni ui是DCloud提供的一个跨端ui库，它是基于vue组件的、flex布局的、无dom的跨全端ui框架。 uni ui不包括基础组件， 它是基础组件的补充 。 相关组件 | 组件名 |
-                                </p>
-                            </div>
-                            <div class="item-card-actions">
-                                <div>浏览</div>
-                                <div>评论</div>
-                                <div>点赞</div>
-                                <a href="#"><button>阅读</button></a>
-                                <a href="#"><button>编辑</button></a>
-                            </div>
-                        </div>
-                        <div class="item-card">
-                            <a href="#"><div class="item-card-title">uni-ui组件库的基本介绍和使用</div></a>
-                            <div class="item-card-desc">
-                                <p class="i_c_d_p">
-                                    摘要： https://uniapp.dcloud.io/component/README?id=uniui 简介 uni ui是DCloud提供的一个跨端ui库，它是基于vue组件的、flex布局的、无dom的跨全端ui框架。 uni ui不包括基础组件， 它是基础组件的补充 。 相关组件 | 组件名 |
-                                </p>
-                            </div>
-                            <div class="item-card-actions">
-                                <div>浏览</div>
-                                <div>评论</div>
-                                <div>点赞</div>
-                                <a href="#"><button>阅读</button></a>
-                                <a href="#"><button>编辑</button></a>
-                            </div>
-                        </div>
-                        <div class="item-card">
-                            <a href="#"><div class="item-card-title">uni-ui组件库的基本介绍和使用</div></a>
-                            <div class="item-card-desc">
-                                <p class="i_c_d_p">
-                                    摘要： https://uniapp.dcloud.io/component/README?id=uniui 简介 uni ui是DCloud提供的一个跨端ui库，它是基于vue组件的、flex布局的、无dom的跨全端ui框架。 uni ui不包括基础组件， 它是基础组件的补充 。 相关组件 | 组件名 |
-                                </p>
-                            </div>
-                            <div class="item-card-actions">
-                                <div>浏览</div>
-                                <div>评论</div>
-                                <div>点赞</div>
-                                <a href="#"><button>阅读</button></a>
-                                <a href="#"><button>编辑</button></a>
-                            </div>
-                        </div>
-                        <div class="item-card">
-                            <a href="#"><div class="item-card-title">uni-ui组件库的基本介绍和使用</div></a>
-                            <div class="item-card-desc">
-                                <p class="i_c_d_p">
-                                    摘要： https://uniapp.dcloud.io/component/README?id=uniui 简介 uni ui是DCloud提供的一个跨端ui库，它是基于vue组件的、flex布局的、无dom的跨全端ui框架。 uni ui不包括基础组件， 它是基础组件的补充 。 相关组件 | 组件名 |
-                                </p>
-                            </div>
-                            <div class="item-card-actions">
-                                <div>浏览</div>
-                                <div>评论</div>
-                                <div>点赞</div>
-                                <a href="#"><button>阅读</button></a>
-                                <a href="#"><button>编辑</button></a>
-                            </div>
-                        </div>
-                        <div class="item-card">
-                            <a href="#"><div class="item-card-title">uni-ui组件库的基本介绍和使用</div></a>
-                            <div class="item-card-desc">
-                                <p class="i_c_d_p">
-                                    摘要： https://uniapp.dcloud.io/component/README?id=uniui 简介 uni ui是DCloud提供的一个跨端ui库，它是基于vue组件的、flex布局的、无dom的跨全端ui框架。 uni ui不包括基础组件， 它是基础组件的补充 。 相关组件 | 组件名 |
-                                </p>
-                            </div>
-                            <div class="item-card-actions">
-                                <div>浏览</div>
-                                <div>评论</div>
-                                <div>点赞</div>
-                                <a href="#"><button>阅读</button></a>
-                                <a href="#"><button>编辑</button></a>
-                            </div>
-                        </div>
-                        <div class="item-card">
-                            <a href="#"><div class="item-card-title">uni-ui组件库的基本介绍和使用</div></a>
-                            <div class="item-card-desc">
-                                <p class="i_c_d_p">
-                                    摘要： https://uniapp.dcloud.io/component/README?id=uniui 简介 uni ui是DCloud提供的一个跨端ui库，它是基于vue组件的、flex布局的、无dom的跨全端ui框架。 uni ui不包括基础组件， 它是基础组件的补充 。 相关组件 | 组件名 |
-                                </p>
-                            </div>
-                            <div class="item-card-actions">
-                                <div>浏览</div>
-                                <div>评论</div>
-                                <div>点赞</div>
-                                <a href="#"><button>阅读</button></a>
-                                <a href="#"><button>编辑</button></a>
-                            </div>
-                        </div>
-                        <div class="item-card">
-                            <a href="#"><div class="item-card-title">uni-ui组件库的基本介绍和使用</div></a>
-                            <div class="item-card-desc">
-                                <p class="i_c_d_p">
-                                    摘要： https://uniapp.dcloud.io/component/README?id=uniui 简介 uni ui是DCloud提供的一个跨端ui库，它是基于vue组件的、flex布局的、无dom的跨全端ui框架。 uni ui不包括基础组件， 它是基础组件的补充 。 相关组件 | 组件名 |
-                                </p>
-                            </div>
-                            <div class="item-card-actions">
-                                <div>浏览</div>
-                                <div>评论</div>
-                                <div>点赞</div>
-                                <a href="#"><button>阅读</button></a>
-                                <a href="#"><button>编辑</button></a>
-                            </div>
-                        </div>
-                        <div class="item-card">
-                            <a href="#"><div class="item-card-title">uni-ui组件库的基本介绍和使用</div></a>
-                            <div class="item-card-desc">
-                                <p class="i_c_d_p">
-                                    摘要： https://uniapp.dcloud.io/component/README?id=uniui 简介 uni ui是DCloud提供的一个跨端ui库，它是基于vue组件的、flex布局的、无dom的跨全端ui框架。 uni ui不包括基础组件， 它是基础组件的补充 。 相关组件 | 组件名 |
-                                </p>
-                            </div>
-                            <div class="item-card-actions">
-                                <div>浏览</div>
-                                <div>评论</div>
-                                <div>点赞</div>
-                                <a href="#"><button>阅读</button></a>
-                                <a href="#"><button>编辑</button></a>
-                            </div>
-                        </div>
-                        <div class="item-card">
-                            <a href="#"><div class="item-card-title">uni-ui组件库的基本介绍和使用</div></a>
-                            <div class="item-card-desc">
-                                <p class="i_c_d_p">
-                                    摘要： https://uniapp.dcloud.io/component/README?id=uniui 简介 uni ui是DCloud提供的一个跨端ui库，它是基于vue组件的、flex布局的、无dom的跨全端ui框架。 uni ui不包括基础组件， 它是基础组件的补充 。 相关组件 | 组件名 |
-                                </p>
-                            </div>
-                            <div class="item-card-actions">
-                                <div>浏览</div>
-                                <div>评论</div>
-                                <div>点赞</div>
-                                <a href="#"><button>阅读</button></a>
-                                <a href="#"><button>编辑</button></a>
-                            </div>
-                        </div>
+                        {/volist}
                     </div>
-                    <div class="essay-list-page"></div>
+                    <div class="essay-list-page">
+                        {$list|raw}
+                    </div>
                 </div>
             </div>
             <div id="footer">
