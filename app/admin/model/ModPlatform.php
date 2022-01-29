@@ -30,7 +30,7 @@ class ModPlatform
         if($params['id']) {
             $sql = $sql->where('id','=',$params['id']);
         }
-        return $sql->select();
+        return $sql->find();
     }
 
     public function getEssayTags()

@@ -19,6 +19,7 @@ class SrvPlatform
     public function getEssay($params)
     {
         $data = $this->mod->getEssay($params);
+        $data['content'] = str_replace("\n", "<br>", $data['content']);
         return $data;
     }
 

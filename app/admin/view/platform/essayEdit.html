@@ -16,14 +16,14 @@
                     <label class="layui-form-label">* 标签：</label>
                     <div class="layui-input-block" style="width: 180px">
                         <select name="tags">
-                            <option value="">选择随笔标签</option>
+                            <option value="">请选择随笔标签</option>
                         </select>
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">* 摘要：</label>
                     <div class="layui-input-inline" style="width: 60%;height: 100px;">
-                        <textarea name="abstract" placeholder="请输入内容" class="layui-textarea" value="{$data.abstract|default = ''}"></textarea>
+                        <textarea id="abstract" name="abstract" placeholder="请输入内容摘要" class="layui-textarea"></textarea>
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -61,6 +61,7 @@
                 form = layui.form,
                 layedit = layui.layedit;
 
+            $("#abstract").val('{$data.abstract|default = ""}');
             //富文本编辑器 layui.layedit
             $("#content").val('{$data.content|default = ""|raw}'); //先赋值再创建
             layedit.set({
@@ -89,6 +90,7 @@
                 for(var key in tagsMap) {
                     tags.append('<option value="' + key + '"> ' + tagsMap[key] + '</option>');
                 }
+                tags.val('{$data.tags|default = ""}');
                 form.render('select');
             })
 
