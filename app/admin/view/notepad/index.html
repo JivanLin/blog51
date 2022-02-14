@@ -60,7 +60,7 @@
                     // console.log(res);
                     var list = res.list
                     for(var i=0; i<list.length; i++){
-                        list[i].create_time = DateTime(list[i].create_time)
+                        list[i].create_time = formatDateTime(list[i].create_time)
                     }
                     return {
                         "code": 0,

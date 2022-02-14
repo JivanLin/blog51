@@ -61,9 +61,9 @@
                 form = layui.form,
                 layedit = layui.layedit;
 
-            $("#abstract").val('{$data.abstract|default = ""}');
+            $("#abstract").val("{$data.abstract|default = ''|raw}");
             //富文本编辑器 layui.layedit
-            $("#content").val('{$data.content|default = ""|raw}'); //先赋值再创建
+            $("#content").val("{$data.content|default = ''|raw}"); //先赋值再创建
             layedit.set({
                 uploadImage: {
                     url: "/admin/upload/uploadImage" //接口url

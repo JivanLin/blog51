@@ -37,8 +37,7 @@ function formatDate(timestamp){
     if(D.toString().length == 1){
         D="0"+D;
     }
-    var timeData=Y+"-"+M+"-"+D;
-    return timeData;
+    return Y+"-"+M+"-"+D;
 }
 
 /**
@@ -46,7 +45,7 @@ function formatDate(timestamp){
  * @returns {Y-M-D h:i:s}
  * @constructor
  */
-function DateTime(/** timestamp=0 **/) {
+function formatDateTime(/** timestamp=0 **/) {
     var ts = arguments[0] || 0;
     var t,y,m,d,h,i,s;
     t = ts ? new Date(ts*1000) : new Date();

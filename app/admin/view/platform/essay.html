@@ -54,7 +54,7 @@
                     // console.log(res);
                     var list = res.list
                     for(var i=0;i<list.length;i++){
-                        list[i].atime = DateTime(list[i].atime)
+                        list[i].atime = formatDateTime(list[i].atime)
                         list[i].tags_txt = tagsMap[list[i].tags];
                     }
                     return {

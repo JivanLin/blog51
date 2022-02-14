@@ -7,320 +7,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="stylesheet" href="__STATIC__/normalize.css">
+    <link rel="stylesheet" href="__STATIC__/index/index.css">
     <link rel="stylesheet" href="__LAYUI__/style/font-awesome.min.css" media="all">
     <script type="text/javascript" src="__STATIC__/jquery-3.1.1.min.js"></script>
-    <style>
-        body {
-            background-color: #fff;
-            color: #000;
-            font-size: 1em;
-            line-height: 1.5;
-            font-family: UbuntuMono, "Varela Round", "PingFang SC", "Microsoft YaHei", Helvetica, Arial, Menlo, Monaco, monospace, sans-serif;
-            overflow: hidden;
-        }
-        ::-webkit-scrollbar{width:12px;height:12px;border-radius:4px}
-        ::-webkit-scrollbar-track{background:rgba(0,0,0,0.01)}
-        ::-webkit-scrollbar-thumb{background:rgba(0,0,0,0.11);border-radius:4px}
-        ::-webkit-scrollbar-thumb:hover{background:rgba(0, 0, 0, 0.2)}
-        #home {
-            display: grid;
-            grid-template-columns: 14vw 1fr 1fr 17.5vw;
-            grid-template-rows: 1fr 1fr 1fr;
-            grid-template-areas: "left main main right" "left main main right" "left main main right";
-            height: 100vh;
-        }
-        .main {
-            grid-area: main;
-            display: grid;
-            grid-template-rows: 40px 1fr 30px;
-            grid-template-columns: 1fr;
-        }
-
-        .main-searchBar {
-            display: grid;
-            grid-template-columns: 1fr;
-            position: relative;
-            border-bottom: 1px solid #eaeaea;
-            background-color: #fff;
-        }
-        .main-searchBar input {
-            border: none;
-            padding: 0 54px;
-            font-size: 13px;
-            /*搜索图标*/
-            background-image: url('__STATIC__/images/search.svg');
-            background-repeat: no-repeat;
-            background-size: 16px;
-            background-position: 25px 50%;
-
-        }
-        .main-searchBar input::-webkit-input-placeholder {
-            color: #757575;
-            font-size: 13px;
-        }
-
-        .main-content {
-            position: relative;
-            display: grid;
-            grid-template-columns: 100%;
-            grid-template-rows: 40vh 1fr;
-            padding: 20px;
-            background-color: #f5f6f7;
-            overflow: auto;
-        }
-        .main-content .profile {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            z-index: 1;
-        }
-        .main-content .profile .profile-banner {
-            position: relative;
-            display: flex;
-            flex: 1;
-            background-image: url('__STATIC__/images/banner.jpg');
-            border-radius: 4px 4px 0 0;
-            background-position: 50%;
-            background-size: cover;
-            background-repeat: no-repeat;
-        }
-        .main-content .profile .profile-menu{
-            display: flex;
-            padding-left: 185px;
-            background: #f8f8f8;
-            border-radius: 0 0 4px 4px;
-        }
-        .main-content .profile .profile-menu a {
-            padding: 12px 16px;
-            color: #333;
-            cursor: pointer;
-            font-size: 14px;
-        }
-        .main-content .profile .profile-blur {
-            position: absolute;
-            left: 0;
-            top: 0;
-            margin: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('__STATIC__/images/banner.jpg');
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-position: center;
-            opacity: .9;
-            z-index: -1;
-            filter: blur(50px);
-        }
-        .main-content .profile .profile-avatar{
-            position: absolute;
-            align-items: center;
-            display: flex;
-            z-index: 1;
-            bottom: 16px;
-            left: 24px;
-        }
-        .main-content .profile .profile-avatar img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            border: 3px solid rgb(240 239 239);
-        }
-
-        .main-content .profile .profile-author {
-            position: absolute;
-            left: 200px;
-            bottom: 80px;
-            z-index: 1;
-        }
-        .main-content .profile .profile-author p {
-            display: flex;
-            align-items: center;
-        }
-        .main-content .profile .profile-author p:nth-child(1) {
-            font-size: 22px;
-            color: #fff;
-            font-weight: 600;
-            font-family: "DM Sans",sans-serif;
-            text-shadow: 0 0 3px #151728;
-        }
-        .main-content .profile .profile-author p:nth-child(2) {
-            margin-top: 12px;
-            font-size: 13px;
-            color: #fff;
-            text-shadow: 0 0 3px #151728;
-        }
-        .main-content .profile .profile-author button {
-            margin-left: 10px;
-            background-color: #ffc312;
-            border: none;
-            color: #fff;
-            border-radius: 4px;
-            padding: 3px 7px;
-            box-shadow: 0 0 3px #ffc312;
-            cursor: pointer;
-        }
-
-        @media screen and (max-width: 1366px) {
-            .main-content .profile .profile-avatar {
-                left: 20px;
-                bottom: 54px;
-            }
-            .main-content .profile .profile-avatar img {
-                width: 80px;
-                height: 80px;
-            }
-            .main-content .profile .profile-author {
-                left: 114px;
-                bottom: 62px;
-            }
-            .main-content .profile .profile-menu {
-                padding: 0 30px;
-                overflow: auto;
-                font-size: 14px;
-            }
-            .main-content .profile .profile-menu a {
-                padding: 10px 8px;
-            }
-        }
-
-        .essay-list{z-index: 2}
-        .essay-list .essay-list-item {
-            margin: 1rem 0;
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            grid-gap: 1rem;
-        }
-        .essay-list .essay-list-item .item-card{
-            display: flex;
-            flex-direction: column;
-            word-break: break-all;
-
-            background-color: #fff;
-            border-radius: 4px;
-            box-sizing: border-box;
-            flex-grow: 1;
-            -webkit-animation: content-in .5s ease-in 0s;
-            animation: content-in .5s ease-in 0s;
-            box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
-        }
-        .item-card .item-card-title {
-            padding: 20px 20px 8px;
-            font-weight: 700;
-        }
-        .item-card .item-card-title:before {
-            content: "★";
-            font-weight: 400;
-            margin-right: 8px;
-        }
-        .item-card a .item-card-title{color: #0f0f0f}
-        .item-card a .item-card-title:hover{color: #1B86F9}
-        .item-card .item-card-desc {
-            color: #5c5e6e;
-            padding: 0 20px 8px;
-            flex-grow: 1;
-        }
-        .item-card .item-card-desc .i_c_d_p {
-            word-wrap: break-word;
-            word-break: break-all;
-            overflow: hidden;
-            line-height: 1.5;
-        }
-        .item-card .item-card-actions {
-            display: flex;
-            align-items: center;
-            padding: 10px 20px;
-            border-top: 1px solid #eaeaea;
-        }
-        .item-card .item-card-actions div {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-            margin-right: 10px;
-        }
-        .item-card .item-card-actions div i{
-            margin-right: 4px;
-        }
-        .item-card .item-card-actions a:first-of-type {
-            margin-left: auto;
-            margin-right: 10px;
-        }
-        .item-card .item-card-actions button {
-            margin-left: auto;
-            padding: 4px 12px;
-            background-color: #1b86f9;
-            outline: none;
-            border: 1px solid #1b86f9;
-            box-shadow: 0 2px 4px rgba(27,34,249,0.4);
-            color: #fff;
-            border-radius: 4px;
-            cursor: pointer;
-            box-sizing: border-box;
-            white-space: nowrap;
-        }
-
-        #footer {
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #fff;
-            color: #5c5e6e;
-            font-size: 13px;
-        }
-
-        .essay-list-page {
-            text-align: center;
-        }
-        .essay-list-page .pagination {
-            display: inline-block;
-            padding-left: 0;
-            margin: 20px 0;
-            border-radius: 4px;
-        }
-        .essay-list-page .pagination>li {
-            display: inline;
-        }
-
-        .essay-list-page .pagination>li:first-child>a, .essay-list-page .pagination>li:first-child>span {
-            margin-left: 0;
-            border-top-left-radius: 4px;
-            border-bottom-left-radius: 4px;
-        }
-        .essay-list-page .pagination>li>a, .essay-list-page .pagination>li>span {
-            position: relative;
-            float: left;
-            padding: 6px 12px;
-            margin-left: -1px;
-            line-height: 1.42857143;
-            color: #337ab7;
-            text-decoration: none;
-            background-color: #fff;
-            border: 1px solid #ddd;
-        }
-        .essay-list-page .pagination>li>a:hover{
-            background-color: rgba(0,0,0,0.08);
-        }
-        .essay-list-page .pagination .active span {
-            background-color: #337ab7;
-            color: #FFF;
-        }
-
-
-    </style>
+    <script type="text/javascript" src="__STATIC__/function.js"></script>
 </head>
 <body>
     <div id="home">
-        <div class="main" style="background-color: #c8c9cb;">
-            <div class="main-searchBar" style="">
+        <div id="main">
+            <div class="main-searchBar">
                 <input type="text" placeholder="search by pressing enter">
             </div>
             <div class="main-content">
                 <div class="profile">
                     <div class="profile-banner"></div>
                     <div class="profile-menu">
-                        <a target="_blank" href="#">收藏</a>
-                        <a target="_blank" href="#">闪存</a>
+                        <a href="javascript:;">收藏</a>
+                        <a href="javascript:;">闪存</a>
                     </div>
                     <div class="profile-blur"></div>
                     <div class="profile-avatar">
@@ -332,7 +35,7 @@
                             <!--<button class="profile-about" href="#">关于我</button>-->
                         </p>
                         <p>
-                            <span class="profile-age">时间：10分钟</span>
+                            <span class="profile-time">历时：<span class="profile-countTime">0.5天即放弃</span></span>
                             <!--<a href=""></a>-->
                         </p>
                     </div>
@@ -366,8 +69,11 @@
                 Copyright &copy; 2022 linxiaohei
             </div>
         </div>
-        <div class="left">
-
+        <div id="left-side" style="opacity: 0.85">
+            程序员很拖拉，等待开发！
+        </div>
+        <div id="sideBar" style="opacity: 0.85">
+            程序员很拖拉，等待开发！
         </div>
     </div>
 </body>

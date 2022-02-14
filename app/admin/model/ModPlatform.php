@@ -47,6 +47,6 @@ class ModPlatform
 
     public function essayUpdate($update,$where)
     {
-        return Db::name('article')->where($where)->update($update);
+        return Db::name('essay')->where($where)->update($update);
     }
 }
