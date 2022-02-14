@@ -7,6 +7,7 @@
     border-radius: 4px;
     background-color: #ffffff;
 }
+.main-content .essay-detail a{color: #1b86f9}
 
 #topics .topics-title a{font-size: 30px;color: #0f0f0f}
 #topics .topics-body .topics-body-signature {
