@@ -44,3 +44,11 @@ if (!function_exists('clean_xss')) {
         }
     }
 }
+
+/*
+ * 获得/写入配置
+ */
+function config()
+{
+
+}
