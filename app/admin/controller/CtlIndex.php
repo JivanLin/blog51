@@ -16,7 +16,8 @@ class CtlIndex extends Controller
     {
         $out['__title__'] = '后台管理';
         $out['user'] = SrvAuth::get_cookie('user', true);
-        $out['__menu__'] = SrvAuth::getNav();
+        $out['__top__'] = SrvAuth::getNavTop();
+        $out['__menu__'] = SrvAuth::getNavMenu();
         return view('/index', $out);
     }
 }
