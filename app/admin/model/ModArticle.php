@@ -5,37 +5,38 @@ use think\Db;
 
 class ModArticle
 {
-    public function articleList($params)
+    public function articleListJson($params)
     {
-        $params['page'] < 0 && $params['page'] = 1;
-
-        $sql = Db::name('article')->alias('a')->leftJoin('user b','a.uid = b.uid');
+        $sql = Db::name('article')->field('a.*,b.nick as author')->alias('a')->leftJoin('admin b','a.a_id = b.id')->where('status','<>',2);
         $count = Db::name('article')->count();
-//        if($params['id']) {
-//            $sql = $sql->where('id','=',$params['id']);
-//        }
 
         if(!$count) {
             return array('list' => [], 'total' => 0);
         }
 
-        $sql = $sql->page($params['page'],$params['limit']);
+        $sql = $sql->order('atime','desc')->page($params['page'],$params['limit']);
         return array('list' => $sql->select(), 'total' => $count);
     }
 
-    public function getArticle($params)
+    public function getArticle($id)
     {
-        return Db::name('article')->where('id','=',$params['id'])->find();
+        return Db::name('article')->field('a.*,b.nick as author')->alias('a')->leftJoin('admin b','a.a_id = b.id')->where('a.id','=',$id)->find();
     }
 
     public function addArticleAction($params)
     {
-        $res = $this->getArticle($params);
-        if($res) {
+        if($params['id']) {
             $id = $params['id'];
             unset($params['id']);
-            return Db::name('article')->where(['id' => $id])->update($params);
+            return Db::name('article')->where(['id' => $id])->update($params); //更新成功 1 数据无更新 0 更新失败false
+        } else {
+            return Db::name('article')->insert($params);
         }
-        return Db::name('article')->insert($params);
     }
+
+    public function updateArticleStatus($update, $where)
+    {
+        return Db::name('article')->where($where)->update($update);
+    }
+
 }

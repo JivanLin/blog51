@@ -23,12 +23,12 @@
                         <input type="text" class="layui-input" autocomplete="off" name="title" value="{$data.title|default = ''}">
                     </div>
                 </div>
-                <div class="layui-form-item">
+                <!--<div class="layui-form-item">
                     <label class="layui-form-label">* 文章描述：</label>
                     <div class="layui-input-inline" style="width: 420px">
                         <input type="text" class="layui-input" autocomplete="off" name="describe" value="{$data.describe|default = ''}">
                     </div>
-                </div>
+                </div>-->
                 <div class="layui-form-item">
                     <label class="layui-form-label">* 文章内容：</label>
                     <div class="layui-input-inline" style="width: 60%">
@@ -82,7 +82,7 @@
                 delete data.field.file; //参数为layedit编辑器自带
                 // console.log(data.field);
                 $.ajax({
-                    url: "{:url('@admin/article/addArticleAction')}"
+                    url: "/admin/article/addArticleAction"
                     ,type: "POST"
                     ,data: data.field
                     ,dataType: "json"

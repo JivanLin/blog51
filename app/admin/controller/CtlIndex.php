@@ -1,8 +1,8 @@
 <?php
 namespace app\admin\controller;
 
-use app\admin\service\SrvAuth;
 use think\Controller;
+use app\admin\service\SrvAuth;
 
 class CtlIndex extends Controller
 {
@@ -16,8 +16,16 @@ class CtlIndex extends Controller
     {
         $out['__title__'] = '后台管理';
         $out['user'] = SrvAuth::get_cookie('user', true);
-        $out['__top__'] = SrvAuth::getNavTop();
-        $out['__menu__'] = SrvAuth::getNavMenu();
+
+        $top = SrvAuth::getNavTop();
+        $top_first = array_keys($top);
+        $out['__top__'] = $top;
+        $out['__top_this__'] = $top_first[0];
+
+        $menu = SrvAuth::getNavMenu();
+        $out['__menu__'] = json_encode($menu);
+
         return view('/index', $out);
     }
+
 }

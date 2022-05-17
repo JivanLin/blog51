@@ -27,7 +27,7 @@ class CtlIndex
 
     public function noteDetails()
     {
-        $params['id'] = $this->request->param('id');
+        $params['id'] = $this->request->param('id', 1);
         $out = $this->mod->noteDetails($params);
         $out['data']['create_time'] = date('Y-m-d H:i:s', $out['data']['create_time']);
         return view('/details', $out);
