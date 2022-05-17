@@ -18,7 +18,7 @@
             <form class="layui-form layui-card-header layuiadmin-card-header-auto my-layui-form">
                 <div class="layui-inline layui-btn-group">
                     <!--<button type="button" class="layui-btn layui-btn-sm" lay-submit lay-filter="filter-search"> 筛 选 </button>-->
-                    <button type="button" class="layui-btn layui-btn-sm layui-btn-normal add">发表文章</button>
+                    <button type="button" class="layui-btn layui-btn-sm layui-btn-normal add">添加</button>
                 </div>
             </form>
             <div class="layui-card-body">
@@ -27,7 +27,11 @@
                 <script type="text/html" id="my-operate">
                     <div class="layui-btn-group">
                         <button type="button" class="layui-btn layui-btn-xs layui-btn-normal" lay-event="edit">编辑</button>
-                        <button type="button" class="layui-btn layui-btn-xs layui-btn-danger" lay-event="delete">删除</button>
+                        {{# if(d.status == 0){ }}
+                        <button type="button" class="layui-btn layui-btn-xs layui-btn" lay-event="u_status">发布</button>
+                        {{# } else { }}
+                        <button type="button" class="layui-btn layui-btn-xs layui-btn-danger" lay-event="u_status">删除</button>
+                        {{# } }}
                     </div>
                 </script>
             </div>
@@ -44,13 +48,12 @@
                 ,size: 'sm'
                 // ,height: 312
                 // ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，
-                ,url: "{:url('@admin/article/articleList')}" //数据接口
+                ,url: "/admin/article/articleListJson" //数据接口
                 ,cols: [[ //表头
-                    {field: 'id', title: 'ID', width: 80}
-                    ,{field: 'nickname', title: '作者', width: 80}
-                    ,{field: 'title', title: '标题', width: 120}
-                    ,{field: 'describe', title: '描述', width: 150}
-                    ,{field: 'atime', title: '发表时间', width: 150}
+                    {field: 'title', title: '标题', width: 120}
+                    ,{field: 'author', title: '作者', width: 120}
+                    ,{field: 'content', title: '内容', width: 150}
+                    ,{field: 'atime', title: '时间', width: 150}
                     ,{field: 'opt', title: '操作', width:150, align:'center', toolbar: '#my-operate'}
                 ]]
                 ,page: {
@@ -58,7 +61,7 @@
                     ,limit:15
                 }
                 ,parseData: function(res){
-                    // console.log(res);
+                    // console.log(res.list);
                     var list = res.list
                     for(var i=0;i<list.length;i++){
                         list[i].atime = formatDateTime(list[i].atime)
@@ -90,11 +93,16 @@
                 tool[obj.event](data);
             });
 
+            //文章发表
+            $('.add').click(function(){
+                tool.edit(this);
+            });
+
             var tool = {
                 //文章编辑
                 edit: function (data){
                     var api = "/admin/article/addArticle?id="+data.id;
-                    var txt = '文章发表';
+                    var txt = '编辑文章';
 
                     var index = layui.layer.open({
                         title : txt,
@@ -108,16 +116,30 @@
                         layui.layer.full(index);
                     })
                 },
-                //文章删除
-                delete: function (){
-
+                //文章状态
+                u_status: function (data){
+                    // console.log(data);
+                    var txt = data.status ? '确定删除此文章吗？' : '确定发布此文章吗？';
+                    layer.confirm(txt, function(index){
+                        $.post('/admin/article/updateArticleStatus',{id:data.id,status:data.status},function(re){
+                            // layer.close(index);
+                            layer.open({
+                                type: 1,
+                                title:false,
+                                closeBtn: 0,
+                                shadeClose: true,
+                                content:'<p style="margin:15px 30px;">'+re.msg+'</p>',
+                                time:1000,
+                                end: function () {
+                                    location.reload();
+                                }
+                            });
+                        },'json');
+                    });
                 },
             };
 
-            //文章发表
-            $('.add').click(function(){
-                tool.edit(this);
-            });
+
         });
     </script>
 </body>
