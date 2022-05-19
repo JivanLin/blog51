@@ -1,4 +1,10 @@
 {include file="public/head"}
+<style>
+    .layui-table-cell {
+        height: auto !important;
+        max-height: 100px;
+    }
+</style>
     <div class="layui-fluid ">
         <div class="layui-card">
             <form class="layui-form layui-card-header layuiadmin-card-header-auto my-layui-form">
@@ -25,9 +31,11 @@
     </div>
 
     <script>
-        layui.use(['table','form'], function(){
+
+        layui.use(['table','form','util'], function(){
             var table = layui.table,
-                form = layui.form;
+                form = layui.form,
+                util = layui.util;
 
             table.render({
                 elem: "#my-table"
@@ -36,9 +44,10 @@
                 // ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，
                 ,url: "/admin/article/articleListJson" //数据接口
                 ,cols: [[ //表头
-                    {field: 'title', title: '标题', width: 120}
-                    ,{field: 'author', title: '作者', width: 120}
-                    ,{field: 'content', title: '内容', width: 150}
+                    {field: 'title', title: '标题', width: 200}
+                    ,{field: 'author', title: '作者', width: 80}
+                    ,{field: 'describe', title: '描述', width: 200}
+                    ,{field: 'content', title: '内容', width: 500}
                     ,{field: 'atime', title: '时间', width: 150}
                     ,{field: 'opt', title: '操作', width:150, align:'center', toolbar: '#my-operate'}
                 ]]
@@ -50,6 +59,8 @@
                     // console.log(res.list);
                     var list = res.list
                     for(var i=0;i<list.length;i++){
+                        list[i].title = '<a href="#">'+list[i].title+'</a>';
+                        list[i].describe = '后续代替内容展示！';
                         list[i].atime = formatDateTime(list[i].atime)
                     }
                     return {

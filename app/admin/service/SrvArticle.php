@@ -27,12 +27,17 @@ class SrvArticle
 
     public function addArticleAction($params)
     {
-        if(!$params['title'] && !$params['content']) {
-            return fail('缺少必填');
+        $data = [
+            'id' => $params['id'],
+            'title' => $params['title'],
+            'content' => trim($params['content-md-html-code']),
+            'atime' => time(),
+        ];
+        if(!$data['title'] || !$data['content']) {
+            return fail('缺少必要参数');
         }
 
-        $params['atime'] = time();
-        $res = $this->mod->addArticleAction($params);
+        $res = $this->mod->addArticleAction($data);
         if($res !== false) {
             return success('','提交成功');
         }

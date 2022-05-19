@@ -10,10 +10,17 @@ class CtlUpload
     {
         $this->request = new Request();
         $this->srv = new SrvUpload();
+        $guid = $this->request->param('guid');
+        $type = 'layui';
 
         $name = 'file';
-        $size = $_FILES["file"]['size'];
-        $res = $this->srv->upload($name, $size);
+        if ($guid) {
+            $name = 'editormd-image-file';
+            $type = 'editormd';
+        }
+
+        $size = $_FILES[$name]['size'];
+        $res = $this->srv->upload($name, $size, $type);
         return json_encode($res);
     }
 }

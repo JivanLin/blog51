@@ -14,12 +14,15 @@
                     <div class="layui-input-inline" style="width: 420px">
                         <input type="text" class="layui-input" autocomplete="off" name="describe" value="{$data.describe|default = ''}">
                     </div>
-                </div>-->
+                </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">* 文章内容：</label>
                     <div class="layui-input-inline" style="width: 60%">
                         <textarea id="content" name="content" style="display: none;"></textarea>
                     </div>
+                </div>-->
+                <div class="layui-form-item" id="content-md">
+                    <textarea name="content" style="display:none;"></textarea>
                 </div>
                 <div class="layui-form-item layui-layout-admin">
                     <div class="layui-input-block">
@@ -31,7 +34,12 @@
             </form>
         </div>
     </div>
-
+<link rel="stylesheet" href="/static/editormd/css/editormd.css" media="all">
+<style>
+    .editormd {margin: 0;touch-action: none;}
+    .editormd-code-toolbar select{display: inline-block;}
+</style>
+<script type="text/javascript" src="/static/editormd/editormd.js"></script>
     <script>
         function resize(){
             var h=window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
@@ -42,6 +50,17 @@
             }
         }
         resize();
+
+        var editor = editormd("content-md", {
+            width : "70%",   // 宽
+            height : "90%",    // 高
+            path : "/static/editormd/lib/",    // 加载编辑器lib路径
+            saveHTMLToTextarea : true,
+            emoji : true,
+            imageUpload : true,
+            imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+            imageUploadURL : "/admin/upload/uploadImage",
+        });
 
         layui.use(['table','form','layedit'], function(){
             var table = layui.table,
