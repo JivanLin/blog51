@@ -9,20 +9,20 @@
                         <input type="text" class="layui-input" autocomplete="off" name="title" value="{$data.title|default = ''}">
                     </div>
                 </div>
-                <!--<div class="layui-form-item">
+                <div class="layui-form-item">
                     <label class="layui-form-label">* 文章描述：</label>
                     <div class="layui-input-inline" style="width: 420px">
                         <input type="text" class="layui-input" autocomplete="off" name="describe" value="{$data.describe|default = ''}">
                     </div>
                 </div>
-                <div class="layui-form-item">
+                <!--<div class="layui-form-item">
                     <label class="layui-form-label">* 文章内容：</label>
                     <div class="layui-input-inline" style="width: 60%">
                         <textarea id="content" name="content" style="display: none;"></textarea>
                     </div>
                 </div>-->
                 <div class="layui-form-item" id="content-md">
-                    <textarea name="content" style="display:none;"></textarea>
+                    <textarea id="content" name="content-md" style="display:none;">{$data.content|default=''}</textarea>
                 </div>
                 <div class="layui-form-item layui-layout-admin">
                     <div class="layui-input-block">
@@ -51,15 +51,18 @@
         }
         resize();
 
-        var editor = editormd("content-md", {
+        //富文本编辑器 editor_md
+        var editor_md = editormd("content-md", {
             width : "70%",   // 宽
             height : "90%",    // 高
             path : "/static/editormd/lib/",    // 加载编辑器lib路径
-            saveHTMLToTextarea : true,
+            // saveHTMLToTextarea : true,
             emoji : true,
             imageUpload : true,
             imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
             imageUploadURL : "/admin/upload/uploadImage",
+            markdown : $("#content").text(),
+            // htmlDecode : "style,script,iframe",
         });
 
         layui.use(['table','form','layedit'], function(){
@@ -67,24 +70,11 @@
                 form = layui.form,
                 layedit = layui.layedit;
 
-            //富文本编辑器 layui.layedit
-            $("#content").val("{$data.content|default = ''}"); //先赋值在创建
-            var content = layedit.build('content', {
-                tool: [
-                    'strong', 'italic', 'underline', 'del'
-                    ,'|'
-                    ,'left', 'center', 'right'
-                    ,'|'
-                    ,'link', 'unlink', 'face', 'image'
-                    ,'|'
-                    ,'code'
-                ]
-            });
-
             //监听提交
             form.on('submit(formDemo)', function(data){
-                data.field.content = layedit.getContent(content);
-                delete data.field.file; //参数为layedit编辑器自带
+                // data.field.contentType = 0; //富文本编辑器 0:editor_md；1：layedit
+                // data.field['content-layui'] = layedit.getContent(content_lay);
+                // delete data.field.file; //参数为layedit编辑器自带
                 // console.log(data.field);
                 $.ajax({
                     url: "/admin/article/addArticleAction"

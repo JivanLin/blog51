@@ -25,14 +25,8 @@ class SrvArticle
         return $this->mod->getArticle($id);
     }
 
-    public function addArticleAction($params)
+    public function addArticleAction($data)
     {
-        $data = [
-            'id' => $params['id'],
-            'title' => $params['title'],
-            'content' => trim($params['content-md-html-code']),
-            'atime' => time(),
-        ];
         if(!$data['title'] || !$data['content']) {
             return fail('缺少必要参数');
         }

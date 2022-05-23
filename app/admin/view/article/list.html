@@ -24,6 +24,7 @@
                         {{# } else { }}
                         <button type="button" class="layui-btn layui-btn-xs layui-btn-danger" lay-event="u_status">删除</button>
                         {{# } }}
+                        <button type="button" class="layui-btn layui-btn-xs layui-btn-primary" lay-event="preview">预览</button>
                     </div>
                 </script>
             </div>
@@ -32,34 +33,34 @@
 
     <script>
 
-        layui.use(['table','form','util'], function(){
+        layui.use(['table','form','util'], function() {
             var table = layui.table,
                 form = layui.form,
                 util = layui.util;
 
             table.render({
                 elem: "#my-table"
-                ,size: 'sm'
+                , size: 'sm'
                 // ,height: 312
                 // ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，
-                ,url: "/admin/article/articleListJson" //数据接口
-                ,cols: [[ //表头
+                , url: "/admin/article/articleListJson" //数据接口
+                , cols: [[ //表头
                     {field: 'title', title: '标题', width: 200}
-                    ,{field: 'author', title: '作者', width: 80}
-                    ,{field: 'describe', title: '描述', width: 200}
-                    ,{field: 'content', title: '内容', width: 500}
-                    ,{field: 'atime', title: '时间', width: 150}
-                    ,{field: 'opt', title: '操作', width:150, align:'center', toolbar: '#my-operate'}
+                    , {field: 'author', title: '作者', width: 80}
+                    , {field: 'describe', title: '描述', width: 200}
+                    , {field: 'content', title: '内容', width: 500}
+                    , {field: 'atime', title: '时间', width: 150}
+                    , {field: 'opt', title: '操作', width: 150, align: 'center', toolbar: '#my-operate'}
                 ]]
-                ,page: {
-                    layout: ['prev', 'page', 'next', 'skip' ,'count']
-                    ,limit:15
+                , page: {
+                    layout: ['prev', 'page', 'next', 'skip', 'count']
+                    , limit: 15
                 }
-                ,parseData: function(res){
+                , parseData: function (res) {
                     // console.log(res.list);
                     var list = res.list
-                    for(var i=0;i<list.length;i++){
-                        list[i].title = '<a href="#">'+list[i].title+'</a>';
+                    for (var i = 0; i < list.length; i++) {
+                        list[i].title = '<a href="#">' + list[i].title + '</a>';
                         list[i].describe = '后续代替内容展示！';
                         list[i].atime = formatDateTime(list[i].atime)
                     }
@@ -73,7 +74,7 @@
             });
 
             //监听搜索
-            form.on('submit(filter-search)', function(data){
+            form.on('submit(filter-search)', function (data) {
                 var field = data.field;
                 //执行重载
                 table.reload('my-table', {
@@ -85,58 +86,61 @@
             });
 
             //监听工具条
-            table.on('tool(filter-table)', function(obj){
+            table.on('tool(filter-table)', function (obj) {
                 var data = obj.data;
                 tool[obj.event](data);
             });
 
             //文章发表
-            $('.add').click(function(){
+            $('.add').click(function () {
                 tool.edit(this);
             });
 
             var tool = {
                 //文章编辑
-                edit: function (data){
-                    var api = "/admin/article/addArticle?id="+data.id;
+                edit: function (data) {
+                    var api = "/admin/article/addArticle?id=" + data.id;
                     var txt = '编辑文章';
 
                     var index = layui.layer.open({
-                        title : txt,
-                        type : 2,
+                        title: txt,
+                        type: 2,
                         area: ["100%", "100%"],
-                        content : api
+                        content: api
                     })
 
                     layui.layer.full(index);
-                    $(window).on("resize",function(){
+                    $(window).on("resize", function () {
                         layui.layer.full(index);
                     })
                 },
                 //文章状态
-                u_status: function (data){
+                u_status: function (data) {
                     // console.log(data);
                     var txt = data.status ? '确定删除此文章吗？' : '确定发布此文章吗？';
-                    layer.confirm(txt, function(index){
-                        $.post('/admin/article/updateArticleStatus',{id:data.id,status:data.status},function(re){
+                    layer.confirm(txt, function (index) {
+                        $.post('/admin/article/updateArticleStatus', {id: data.id, status: data.status}, function (re) {
                             // layer.close(index);
                             layer.open({
                                 type: 1,
-                                title:false,
+                                title: false,
                                 closeBtn: 0,
                                 shadeClose: true,
-                                content:'<p style="margin:15px 30px;">'+re.msg+'</p>',
-                                time:1000,
+                                content: '<p style="margin:15px 30px;">' + re.msg + '</p>',
+                                time: 1000,
                                 end: function () {
                                     location.reload();
                                 }
                             });
-                        },'json');
+                        }, 'json');
                     });
                 },
+                //文章预览
+                preview: function (data) {
+                    var url = "/admin/article/articleDetails?id="+data.id
+                    window.open(url);
+                }
             };
-
-
         });
     </script>
 {include file="public/foot"}

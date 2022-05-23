@@ -7,6 +7,7 @@ class CtlArticle extends CtlIndex
 {
     protected $middleware = ['admin'];
     protected $srv;
+
     public function __construct()
     {
         $this->request = Request();
@@ -39,7 +40,13 @@ class CtlArticle extends CtlIndex
 
     public function addArticleAction()
     {
-        $params = $this->request->post();
+        $post = $this->request->post();
+        $params = [
+            'id' => $post['id'],
+            'title' => $post['title'],
+            'content' => $post['content-md'],
+            'atime' => time(),
+        ];
         return $this->srv->addArticleAction($params);
     }
 
@@ -47,7 +54,7 @@ class CtlArticle extends CtlIndex
     {
         $id = $this->request->param('id', 0);
         $status = $this->request->param('status', 0);
-        return $this->srv->updateArticleStatus($id,$status);
+        return $this->srv->updateArticleStatus($id, $status);
     }
 
 }
