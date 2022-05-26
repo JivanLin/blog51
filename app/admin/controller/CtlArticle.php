@@ -2,6 +2,7 @@
 namespace app\admin\controller;
 
 use app\admin\service\SrvArticle;
+use app\admin\service\SrvAuth;
 
 class CtlArticle extends CtlIndex
 {
@@ -19,42 +20,44 @@ class CtlArticle extends CtlIndex
         return view('article/list');
     }
 
-    public function articleListJson()
+    public function listJson()
     {
         $params = [
             'page' => $this->request->param('page', 1),
             'limit' => $this->request->param('limit', 15),
         ];
-        return $this->srv->articleListJson($params);
+        return $this->srv->listJson($params);
     }
 
-    public function addArticle()
+    public function add()
     {
         $id = $this->request->param('id', 0);
         $out = [];
-        if($id) {
+        if ($id) {
             $out['data'] = $this->srv->getArticle($id);
         }
         return view('article/addArticle', $out);
     }
 
-    public function addArticleAction()
+    public function addAction()
     {
         $post = $this->request->post();
         $params = [
             'id' => $post['id'],
             'title' => $post['title'],
+            'describe' => $post['describe'],
             'content' => $post['content-md'],
             'atime' => time(),
+            'aid' => SrvAuth::get_cookie('id', true),
         ];
-        return $this->srv->addArticleAction($params);
+        return $this->srv->addAction($params);
     }
 
-    public function updateArticleStatus()
+    public function updateStatus()
     {
-        $id = $this->request->param('id', 0);
-        $status = $this->request->param('status', 0);
-        return $this->srv->updateArticleStatus($id, $status);
+        $id = $this->request->param('id');
+        $opt = $this->request->param('opt');
+        return $this->srv->updateStatus($id, $opt);
     }
 
 }

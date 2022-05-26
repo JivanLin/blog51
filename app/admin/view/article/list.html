@@ -20,9 +20,10 @@
                     <div class="layui-btn-group">
                         <button type="button" class="layui-btn layui-btn-xs layui-btn-normal" lay-event="edit">编辑</button>
                         {{# if(d.status == 0){ }}
-                        <button type="button" class="layui-btn layui-btn-xs layui-btn" lay-event="u_status">发布</button>
+                        <button type="button" class="layui-btn layui-btn-xs layui-btn" lay-event="publish">发布</button>
+                        <button type="button" class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</button>
                         {{# } else { }}
-                        <button type="button" class="layui-btn layui-btn-xs layui-btn-danger" lay-event="u_status">删除</button>
+                        <button type="button" class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</button>
                         {{# } }}
                         <button type="button" class="layui-btn layui-btn-xs layui-btn-primary" lay-event="preview">预览</button>
                     </div>
@@ -43,14 +44,14 @@
                 , size: 'sm'
                 // ,height: 312
                 // ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，
-                , url: "/admin/article/articleListJson" //数据接口
+                , url: "/admin/article/listJson" //数据接口
                 , cols: [[ //表头
-                    {field: 'title', title: '标题', width: 200}
+                    {field: 'title', title: '标题', width: 360}
                     , {field: 'author', title: '作者', width: 80}
-                    , {field: 'describe', title: '描述', width: 200}
-                    , {field: 'content', title: '内容', width: 500}
+                    , {field: 'describe', title: '简述', width: 200}
+                    // , {field: 'content', title: '内容', width: 500}
                     , {field: 'atime', title: '时间', width: 150}
-                    , {field: 'opt', title: '操作', width: 150, align: 'center', toolbar: '#my-operate'}
+                    , {field: 'opt', title: '操作', width: 200, align: 'center', toolbar: '#my-operate'}
                 ]]
                 , page: {
                     layout: ['prev', 'page', 'next', 'skip', 'count']
@@ -60,8 +61,6 @@
                     // console.log(res.list);
                     var list = res.list
                     for (var i = 0; i < list.length; i++) {
-                        list[i].title = '<a href="#">' + list[i].title + '</a>';
-                        list[i].describe = '后续代替内容展示！';
                         list[i].atime = formatDateTime(list[i].atime)
                     }
                     return {
@@ -99,7 +98,7 @@
             var tool = {
                 //文章编辑
                 edit: function (data) {
-                    var api = "/admin/article/addArticle?id=" + data.id;
+                    var api = "/admin/article/add?id=" + data.id;
                     var txt = '编辑文章';
 
                     var index = layui.layer.open({
@@ -114,12 +113,29 @@
                         layui.layer.full(index);
                     })
                 },
-                //文章状态
-                u_status: function (data) {
-                    // console.log(data);
-                    var txt = data.status ? '确定删除此文章吗？' : '确定发布此文章吗？';
-                    layer.confirm(txt, function (index) {
-                        $.post('/admin/article/updateArticleStatus', {id: data.id, status: data.status}, function (re) {
+                //文章发布
+                publish: function (data) {
+                    layer.confirm('确定发布此文章吗？', function (index) {
+                        $.post('/admin/article/updateStatus', {id: data.id, opt: 0}, function (re) {
+                            // layer.close(index);
+                            layer.open({
+                                type: 1,
+                                title: false,
+                                closeBtn: 0,
+                                shadeClose: true,
+                                content: '<p style="margin:15px 30px;">' + re.msg + '</p>',
+                                time: 1000,
+                                end: function () {
+                                    location.reload();
+                                }
+                            });
+                        }, 'json');
+                    });
+                },
+                //文章删除
+                del: function (data) {
+                    layer.confirm('确定删除此文章吗？', function (index) {
+                        $.post('/admin/article/updateStatus', {id: data.id, opt: 1}, function (re) {
                             // layer.close(index);
                             layer.open({
                                 type: 1,
@@ -137,7 +153,7 @@
                 },
                 //文章预览
                 preview: function (data) {
-                    var url = "/admin/article/articleDetails?id="+data.id
+                    var url = "/admin/article/details?id="+data.id
                     window.open(url);
                 }
             };

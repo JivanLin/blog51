@@ -10,14 +10,14 @@ class SrvArticle
         $this->mod = new ModArticle();
     }
 
-    public function articleListJson($params)
+    public function listJson($params)
     {
-        if($params['page'] < 0) {
+        if ($params['page'] < 0) {
             $params['page'] = 1;
         }
         !$params['limit'] && $params['limit'] = 15;
 
-        return $this->mod->articleListJson($params);
+        return $this->mod->listJson($params);
     }
 
     public function getArticle($id)
@@ -25,32 +25,32 @@ class SrvArticle
         return $this->mod->getArticle($id);
     }
 
-    public function addArticleAction($data)
+    public function addAction($data)
     {
-        if(!$data['title'] || !$data['content']) {
+        if (!$data['title'] || !$data['content']) {
             return fail('缺少必要参数');
         }
 
-        $res = $this->mod->addArticleAction($data);
-        if($res !== false) {
-            return success('','提交成功');
+        $res = $this->mod->addAction($data);
+        if ($res !== false) {
+            return success('', '提交成功');
         }
         return fail('提交失败');
     }
 
-    public function updateArticleStatus($id,$status)
+    public function updateStatus($id, $opt)
     {
         $update = [];
         $where = ['id' => $id];
-        if($status == 0) {
+        if ($opt == 0) {
             $update = ['status' => 1];
         }
-        if($status == 1) {
+        if ($opt == 1) {
             $update = ['status' => 2];
         }
-        $res = $this->mod->updateArticleStatus($update, $where);
-        if($res) {
-            return success('','成功');
+        $res = $this->mod->updateStatus($update, $where);
+        if ($res) {
+            return success('', '成功');
         }
         return fail('失败');
     }
