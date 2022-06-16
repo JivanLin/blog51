@@ -1,22 +1,22 @@
 <?php
 namespace app\index\controller;
 
-use app\index\model\ModIndex;
+use app\index\service\SrvIndex;
 use think\Controller;
-use think\Request;
 
 class CtlIndex extends Controller
 {
-    protected $mod;
+    protected $srv;
     public function __construct()
     {
         parent::__construct();
-        $this->mod = new ModIndex();
+        $this->srv = new SrvIndex();
     }
 
     public function index()
     {
-        $out['list'] = $this->mod->getEssayList();
+        $out['list'] = $this->srv->getArticle();
+        print_r($out);
         return view('/index', $out);
     }
 
@@ -24,7 +24,7 @@ class CtlIndex extends Controller
     {
         $id = $this->request->get('id',0);
         if($id) {
-            $out['data'] = $this->mod->getEssay($id);
+            $out['data'] = $this->srv->getEssay($id);
             $out['__title__'] = $out['data']['title'];
             $out['__link__'] =  $_SERVER['HTTP_REFERER'];
             return view('/essay', $out);

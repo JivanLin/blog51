@@ -2,16 +2,12 @@
 namespace app\index\model;
 
 use think\Db;
+use think\Model;
 
-class ModIndex
+class ModIndex extends Model
 {
-    public function getEssay($id)
+    public function getArticle()
     {
-        return Db::name('essay')->where('id',$id)->find();
-    }
-
-    public function getEssayList()
-    {
-        return Db::name('essay')->where('state',0)->paginate(10);
+        return Db::name('article')->where('status',1)->paginate(10);
     }
 }

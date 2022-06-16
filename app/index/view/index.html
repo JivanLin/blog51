@@ -6,11 +6,11 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <link rel="stylesheet" href="__STATIC__/normalize.css">
-    <link rel="stylesheet" href="__STATIC__/index/index.css">
-    <link rel="stylesheet" href="__LAYUI__/style/font-awesome.min.css" media="all">
-    <script type="text/javascript" src="__STATIC__/jquery-3.1.1.min.js"></script>
-    <script type="text/javascript" src="__STATIC__/function.js"></script>
+    <link rel="stylesheet" href="/static/normalize.css">
+    <link rel="stylesheet" href="/static/index/index.css">
+    <link rel="stylesheet" href="/static/layui/style/font-awesome.min.css" media="all">
+    <script type="text/javascript" src="/static/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="/static/function.js"></script>
 </head>
 <body>
     <div id="home">
@@ -27,7 +27,7 @@
                     </div>
                     <div class="profile-blur"></div>
                     <div class="profile-avatar">
-                        <img src="__STATIC__/images/avatar.jpg" alt="">
+                        <img src="/static/images/avatar.jpg" alt="">
                     </div>
                     <div class="profile-author">
                         <p>
@@ -42,12 +42,12 @@
                 </div>
                 <div class="essay-list">
                     <div class="essay-list-item">
-                        {volist name="list" id="item"}
+                        {foreach $list as $item}
                         <div class="item-card">
                             <a href="/index/index/essay?id={$item.id}"><div class="item-card-title">{$item.title}</div></a>
                             <div class="item-card-desc">
                                 <p class="i_c_d_p">
-                                    摘要： {$item.abstract}
+                                    前言： {$item.describe}
                                 </p>
                             </div>
                             <div class="item-card-actions">
@@ -55,10 +55,9 @@
                                 <div><i class="fa fa-commenting-o"></i>{$item.comment}</div>
                                 <div><i class="fa fa-thumbs-o-up"></i>{$item.praise}</div>
                                 <a href="/index/index/essay?id={$item.id}"><button>阅读</button></a>
-                                <a href="#"><button>编辑</button></a>
                             </div>
                         </div>
-                        {/volist}
+                        {/foreach}
                     </div>
                     <div class="essay-list-page">
                         {$list|raw}

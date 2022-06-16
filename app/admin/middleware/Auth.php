@@ -12,7 +12,7 @@ class Auth
 
         if($URI) {
             if(!SrvAuth::checkLogin()) {
-                return redirect('/admin/index');
+                return redirect('/admin/login');
             }
         }
         return $next($request);
