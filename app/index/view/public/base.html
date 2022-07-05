@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$__title__|default="初见"}</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="/static/normalize.css">
+    <link rel="stylesheet" href="/static/index/index.css">
+    <link rel="stylesheet" href="/static/layui/style/font-awesome.min.css" media="all">
+    <script type="text/javascript" src="/static/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="/static/function.js"></script>
+    {block name="importFile"}{/block}
+</head>
+<body>
+    <div id="home">
+    <div id="main">
+        <div class="main-searchBar">
+            <input type="text" placeholder="search by pressing enter">
+        </div>
+        <div class="main-content">
+            <div class="profile">
+                <div class="profile-banner"></div>
+                <div class="profile-menu">
+                    <a href="http://www.blog51.com/">首页</a>
+                    <a href="javascript:;">收藏</a>
+                    <a href="javascript:;">闪存</a>
+                </div>
+                <div class="profile-blur"></div>
+                <div class="profile-avatar">
+                    <img src="/static/images/avatar.jpg" alt="">
+                </div>
+                <div class="profile-author">
+                    <p>
+                        <a class="profile-nickname" href="#">LINXIAOHEI</a>
+                        <!--<button class="profile-about" href="#">关于我</button>-->
+                    </p>
+                    <p>
+                        <span class="profile-time">历时：<span class="profile-countTime">0.5天即放弃</span></span>
+                        <!--<a href=""></a>-->
+                    </p>
+                </div>
+            </div>
+            {block name="main"}{/block}
+        </div>
+        <div id="footer">
+            Copyright &copy; 2022 <a href="/admin" style="color: #5c5e6e;margin-left: 10px;"> linxiaohei </a>
+        </div>
+    </div>
+    <div id="left-side" style="opacity: 0.85">
+        程序员很拖拉，等待开发！
+        {block name="left-side"}{/block}
+    </div>
+    <div id="sideBar" style="opacity: 0.85">
+        程序员很拖拉，等待开发！
+        {block name="sideBar"}{/block}
+    </div>
+</div>
+</body>
+</html>
