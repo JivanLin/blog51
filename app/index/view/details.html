@@ -1,0 +1,30 @@
+{extend name="public/base" /}
+
+{block name="importFile"}
+<link rel="stylesheet" href="__STATIC__/index/essay.css">
+<link rel="stylesheet" href="__STATIC__/index/essay.css">
+<link rel="stylesheet" href="/static/editormd/css/editormd.css" media="all">
+<script type="text/javascript" src="/static/editormd/editormd.js"></script>
+{/block}
+
+{block name="main"}
+<div class="essay-detail">
+    <div id="topics">
+        <h1 class="topics-title">{$data.title}</h1>
+        <div class="topics-body">
+            <div class="topics-body-main">
+                {$data.content|raw}
+            </div>
+            <div class="topics-body-signature">
+                <p>本文作者：linxiaohei</p>
+                <p>本文链接：{$__link__}</p>
+                <!--<p>版权声明：本作品采用知识共享署名-非商业性使用-禁止演绎 2.5 中国大陆<a href="">许可协议</a>进行许可。</p>-->
+            </div>
+        </div>
+    </div>
+</div>
+{/block}
+
+{block name="left-side"}{/block}
+
+{block name="sideBar"}{/block}

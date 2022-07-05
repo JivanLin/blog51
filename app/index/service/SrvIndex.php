@@ -10,12 +10,13 @@ class SrvIndex
         $this->mod = new ModIndex();
     }
 
-    public function getArticle()
+    public function getArticle($id)
     {
-        $list = $this->mod->getArticle();
-        if(count($list) == 1) {
-            $list = $list[0];
-        }
-        return $list;
+        return $this->mod->getArticle($id);
+    }
+
+    public function getArticleList()
+    {
+        return $this->mod->getArticleList();
     }
 }

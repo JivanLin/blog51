@@ -1,79 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <meta name="renderer" content="webkit">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <link rel="stylesheet" href="/static/normalize.css">
-    <link rel="stylesheet" href="/static/index/index.css">
-    <link rel="stylesheet" href="/static/layui/style/font-awesome.min.css" media="all">
-    <script type="text/javascript" src="/static/jquery-3.1.1.min.js"></script>
-    <script type="text/javascript" src="/static/function.js"></script>
-</head>
-<body>
-    <div id="home">
-        <div id="main">
-            <div class="main-searchBar">
-                <input type="text" placeholder="search by pressing enter">
+{extend name="public/base" /}
+{block name="main"}
+<div class="essay-list">
+    <div class="essay-list-item">
+        {foreach $list as $item}
+        <div class="item-card">
+            <a href="/index/index/details?id={$item.id}" style="text-decoration: none"><div class="item-card-title">{$item.title}</div></a>
+            <div class="item-card-desc">
+                <p class="i_c_d_p" style="">
+                    {$item.describe}
+                </p>
             </div>
-            <div class="main-content">
-                <div class="profile">
-                    <div class="profile-banner"></div>
-                    <div class="profile-menu">
-                        <a href="javascript:;">收藏</a>
-                        <a href="javascript:;">闪存</a>
-                    </div>
-                    <div class="profile-blur"></div>
-                    <div class="profile-avatar">
-                        <img src="/static/images/avatar.jpg" alt="">
-                    </div>
-                    <div class="profile-author">
-                        <p>
-                            <a class="profile-nickname" href="#">LINXIAOHEI</a>
-                            <!--<button class="profile-about" href="#">关于我</button>-->
-                        </p>
-                        <p>
-                            <span class="profile-time">历时：<span class="profile-countTime">0.5天即放弃</span></span>
-                            <!--<a href=""></a>-->
-                        </p>
-                    </div>
-                </div>
-                <div class="essay-list">
-                    <div class="essay-list-item">
-                        {foreach $list as $item}
-                        <div class="item-card">
-                            <a href="/index/index/essay?id={$item.id}"><div class="item-card-title">{$item.title}</div></a>
-                            <div class="item-card-desc">
-                                <p class="i_c_d_p">
-                                    前言： {$item.describe}
-                                </p>
-                            </div>
-                            <div class="item-card-actions">
-                                <div><i class="fa fa-eye"></i>{$item.browse}</div>
-                                <div><i class="fa fa-commenting-o"></i>{$item.comment}</div>
-                                <div><i class="fa fa-thumbs-o-up"></i>{$item.praise}</div>
-                                <a href="/index/index/essay?id={$item.id}"><button>阅读</button></a>
-                            </div>
-                        </div>
-                        {/foreach}
-                    </div>
-                    <div class="essay-list-page">
-                        {$list|raw}
-                    </div>
-                </div>
-            </div>
-            <div id="footer">
-                Copyright &copy; 2022 <a href="/admin" style="color: #5c5e6e;margin-left: 10px;"> linxiaohei </a>
+            <div class="item-card-actions">
+                <div><i class="fa fa-eye"></i>{$item.browse}</div>
+                <div><i class="fa fa-commenting-o"></i>{$item.comment}</div>
+                <div><i class="fa fa-thumbs-o-up"></i>{$item.praise}</div>
+                <a href="/index/index/details?id={$item.id}"><button>阅读</button></a>
             </div>
         </div>
-        <div id="left-side" style="opacity: 0.85">
-            程序员很拖拉，等待开发！
-        </div>
-        <div id="sideBar" style="opacity: 0.85">
-            程序员很拖拉，等待开发！
-        </div>
+        {/foreach}
     </div>
-</body>
-</html>
+    <div class="essay-list-page">
+        {$list|raw}
+    </div>
+</div>
+{/block}
+
+{block name="left-side"}{/block}
+
+{block name="sideBar"}{/block}
