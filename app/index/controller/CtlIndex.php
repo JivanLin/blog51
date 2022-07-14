@@ -24,7 +24,6 @@ class CtlIndex extends Controller
         $id = $this->request->get('id');
         $out['data'] = $this->srv->getArticle($id);
         $out['__title__'] = $out['data']['title'];
-        $out['__link__'] = 'http://www.blog51.com/index/index/details?id='.$id;
 
         return view('/details', $out);
     }

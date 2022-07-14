@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<!--https://www.yuque.com/awescnb 博客园前端模板-->
+<!--https://www.cnblogs.com/guangzan 参照博客园博主-->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,55 +9,74 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="stylesheet" href="/static/normalize.css">
-    <link rel="stylesheet" href="/static/index/index.css">
     <link rel="stylesheet" href="/static/layui/style/font-awesome.min.css" media="all">
     <script type="text/javascript" src="/static/jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="/static/function.js"></script>
-    {block name="importFile"}{/block}
+    {block name="style"}{/block}
 </head>
 <body>
-    <div id="home">
+<div id="loading"><div class="boxLoading"></div></div>
+<style>
+    #loading{position:fixed;width:100%;height:100%;background-color:#fff;z-index:999}.boxLoading{width:50px;height:50px;margin:auto;position:absolute;left:0;right:0;top:0;bottom:0}.boxLoading:before{content:'';width:50px;height:5px;background:#000;opacity:.1;position:absolute;top:59px;left:0;border-radius:50%;animation:shadow .5s linear infinite}.boxLoading:after{content:'';width:50px;height:50px;background: #1a84f6;animation:animate .5s linear infinite;position:absolute;top:0;left:0;border-radius:3px}  @keyframes animate{17%{border-bottom-right-radius:3px} 25%{transform:translateY(9px) rotate(22.5deg)} 50%{transform:translateY(18px) scale(1,0.9) rotate(45deg);border-bottom-right-radius:40px} 75%{transform:translateY(9px) rotate(67.5deg)} 100%{transform:translateY(0) rotate(90deg)}}  @keyframes shadow{0%,100%{transform:scale(1,1)} 50%{transform:scale(1.2,1)}}
+</style>
+<div id="home">
+    <div id="profile_block" style="display: none">
+        <a>Zz```林小黑</a>
+    </div>
     <div id="main">
-        <div class="main-searchBar">
-            <input type="text" placeholder="search by pressing enter">
-        </div>
-        <div class="main-content">
-            <div class="profile">
-                <div class="profile-banner"></div>
-                <div class="profile-menu">
-                    <a href="http://www.blog51.com/">首页</a>
-                    <a href="javascript:;">收藏</a>
-                    <a href="javascript:;">闪存</a>
-                </div>
-                <div class="profile-blur"></div>
-                <div class="profile-avatar">
-                    <img src="/static/images/avatar.jpg" alt="">
-                </div>
-                <div class="profile-author">
-                    <p>
-                        <a class="profile-nickname" href="#">LINXIAOHEI</a>
-                        <!--<button class="profile-about" href="#">关于我</button>-->
-                    </p>
-                    <p>
-                        <span class="profile-time">历时：<span class="profile-countTime">0.5天即放弃</span></span>
-                        <!--<a href=""></a>-->
-                    </p>
+        <div id="mainContent">
+            {block name="main"}{/block}
+
+            <div id="sideBar">
+                <div id="sideBarMain">
+                    <div id="sidebar_news" class="newsItem">
+                        <script>loadBlogNews();</script>
+                    </div>
+                    <div id="sidebar_c3"></div>
+                    <div id="blog-calendar" style="display:none"></div>
+                    <script>loadBlogDefaultCalendar();</script>
+                    <div id="leftcontentcontainer">
+                        <div id="blog-sidecolumn"></div>
+                        <script>loadBlogSideColumn();</script>
+                    </div>
                 </div>
             </div>
-            {block name="main"}{/block}
-        </div>
-        <div id="footer">
-            Copyright &copy; 2022 <a href="/admin" style="color: #5c5e6e;margin-left: 10px;"> linxiaohei </a>
+            <div class="clear"></div>
         </div>
     </div>
-    <div id="left-side" style="opacity: 0.85">
-        程序员很拖拉，等待开发！
-        {block name="left-side"}{/block}
+
+    <div class="clear"></div>
+    <div id="footer">
+        Copyright &copy; 2022 Zz```林小黑<br />
+        <span id="poweredby">Powered by .NET 6 on Kubernetes</span>
     </div>
-    <div id="sideBar" style="opacity: 0.85">
-        程序员很拖拉，等待开发！
-        {block name="sideBar"}{/block}
+
+    <div id="page_end_html">
+        <script src="/static/awescnb/index.js"></script>
+        <script>
+            const opts = {
+                // 基本配置
+                theme: {
+                    name: 'geek',
+                    color: '#1B86F9',
+                    title: '林小黑',
+                    avatar: '/static/images/avatar.jpg',
+                    favicon: '',
+                    headerBackground: '/static/images/banner.jpg',
+                },
+                // 个性签名
+                signature: {
+                    enable: true,
+                    contents: [
+                        "This theme is built with <b style='color:#ff6b81'>awescnb</b>.",
+                        "<b>console.log(🎉);</b>",
+                    ],
+                },
+            }
+            $.awesCnb(opts);
+        </script>
     </div>
 </div>
 </body>
+{block name="script"}{/block}
 </html>
