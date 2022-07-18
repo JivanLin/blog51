@@ -1,0 +1,106 @@
+{include file="public/head"}
+    <div class="layui-fluid">
+        <div class="layui-card my-card">
+            <form class="layui-form my-layui-form layui-card-body" lay-filter="layuiadmin-form-useradmin" id="layuiadmin-form-useradmin">
+                <input type="text" class="layui-input" style="display: none" name="id" value="{$data.id|default = 0}">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">* 文章标题：</label>
+                    <div class="layui-input-inline" style="width: 360px">
+                        <input type="text" class="layui-input" autocomplete="off" name="title" value="{$data.title|default = ''}">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">* 文章描述：</label>
+                    <div class="layui-input-inline" style="width: 420px">
+                        <input type="text" class="layui-input" autocomplete="off" name="describe" value="{$data.describe|default = ''}">
+                    </div>
+                </div>
+                <!--<div class="layui-form-item">
+                    <label class="layui-form-label">* 文章内容：</label>
+                    <div class="layui-input-inline" style="width: 60%">
+                        <textarea id="content" name="content" style="display: none;"></textarea>
+                    </div>
+                </div>-->
+                <div class="layui-form-item" id="content-md">
+                    <textarea id="content" name="content-md" style="display:none;">{$data.content|default=''}</textarea>
+                </div>
+                <div class="layui-form-item layui-layout-admin">
+                    <div class="layui-input-block">
+                        <div class="layui-footer" style="left: 0;">
+                            <button type="button" id="submit" class="layui-btn layui-btn-sm"  lay-submit lay-filter="formDemo"> 保 存 </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+<link rel="stylesheet" href="/static/editormd/css/editormd.css" media="all">
+<style>
+    .editormd {margin: 0;touch-action: none;}
+    .editormd-code-toolbar select{display: inline-block;}
+</style>
+<script type="text/javascript" src="/static/editormd/editormd.js"></script>
+    <script>
+        function resize(){
+            var h=window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+            document.getElementById("layuiadmin-form-useradmin").style.height = h-70 +"px";
+            window.onresize = function(){
+                var h=window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+                document.getElementById("layuiadmin-form-useradmin").style.height = h-70+"px";
+            }
+        }
+        resize();
+
+        //富文本编辑器 editor_md
+        var editor_md = editormd("content-md", {
+            width : "70%",   // 宽
+            height : "90%",    // 高
+            path : "/static/editormd/lib/",    // 加载编辑器lib路径
+            // saveHTMLToTextarea : true,
+            emoji : true,
+            imageUpload : true,
+            imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+            imageUploadURL : "/admin/upload/uploadImage",
+            markdown : $("#content").text(),
+            // htmlDecode : "style,script,iframe",
+        });
+
+        layui.use(['table','form','layedit'], function(){
+            var table = layui.table,
+                form = layui.form,
+                layedit = layui.layedit;
+
+            //监听提交
+            form.on('submit(formDemo)', function(data){
+                // data.field.contentType = 0; //富文本编辑器 0:editor_md；1：layedit
+                // data.field['content-layui'] = layedit.getContent(content_lay);
+                // delete data.field.file; //参数为layedit编辑器自带
+                // console.log(data.field);
+                $.ajax({
+                    url: "/admin/article/addAction"
+                    ,type: "POST"
+                    ,data: data.field
+                    ,dataType: "json"
+                    ,async: false
+                    ,success: function (re){
+                        layer.open({
+                            type: 1,
+                            title:false,
+                            closeBtn: 0,
+                            shadeClose: true,
+                            content:'<p style="margin:15px 30px;">'+re.msg+'</p>',
+                            end:function(){
+                                if(re.state){
+                                    var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                                    parent.layer.close(index); //再执行关闭
+                                    parent.window.location.reload();
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+
+        });
+    </script>
+{include file="public/foot"}
