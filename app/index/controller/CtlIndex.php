@@ -16,7 +16,7 @@ class CtlIndex extends Controller
     public function index()
     {
         $out['list'] = $this->srv->getArticleList();
-        return view('/index', $out);
+        return view('/index/index', $out);
     }
 
     public function details()
@@ -25,7 +25,7 @@ class CtlIndex extends Controller
         $out['data'] = $this->srv->getArticle($id);
         $out['__title__'] = $out['data']['title'];
 
-        return view('/details', $out);
+        return view('/index/details', $out);
     }
 
 }
