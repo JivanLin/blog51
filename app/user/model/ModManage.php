@@ -3,9 +3,9 @@ namespace app\user\model;
 
 use think\Db;
 
-class ModArticle
+class ModManage
 {
-    public function listJson($params)
+    public function articleList($params)
     {
         $sql = Db::name('article')->field('a.*,b.nick as author')->alias('a')->leftJoin('admin b', 'a.aid = b.id')->where('status', '<>', 2);
         $count = Db::name('article')->where('status', '<>', 2)->count();

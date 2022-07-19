@@ -38,9 +38,9 @@
             var form = layui.form;
             form.on('submit(LAY-user-login-submit)', function (obj) {
                 var data = $('form').serialize();
-                $.post('/admin/login/loginAction', {data: data}, function (res) {
+                $.post('/user/login/loginAction', {data: data}, function (res) {
                     if(res.state){
-                        location.href = "/admin/index";
+                        location.href = "/user/index";
                     }else{
                         layer.msg(res.msg);
                         return false;

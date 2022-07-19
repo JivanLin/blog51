@@ -1,3 +1,31 @@
 {include file="public/head"}
-    <div style="padding: 20px;font-weight: bold;font-size: 18px;">欢迎使用layui-admin</div>
+<div class="layui-fluid">
+    <div class="layui-row">
+        <div class="layui-elem-quote" style="text-align: center;border-right: 5px solid #5FB878;">
+            <h1>脚踏实地，笃志前行</h1>
+            <h4>欢迎来到个人博客后台管理系统</h4>
+        </div>
+    </div>
+    <div class="layui-row">
+        <div class="layui-col-xs6 layui-col-sm6 layui-col-md4">
+            <div class="layui-collapse" lay-filter="test">
+            <div class="layui-colla-item">
+                <h2 class="layui-colla-title">站点内容统计：</h2>
+                <div class="layui-colla-content layui-show" style="background-color: #FAFAFA;">
+                    <p>8篇文章（3篇草稿）</p>
+                    <p>6个文章分类</p>
+                    <p>250条评论（2条待审核）</p>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    layui.use(['element','layer'], function(){
+        var element = layui.element
+            ,layer = layui.layer
+
+    });
+</script>
 {include file="public/foot"}

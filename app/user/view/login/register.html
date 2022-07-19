@@ -23,7 +23,7 @@
             var form = layui.form;
             form.on('submit(LAY-user-register-submit)', function (obj) {
                 var data = $('form').serialize();
-                $.post('/admin/login/registerAction', {data: data}, function (res) {
+                $.post('/user/login/registerAction', {data: data}, function (res) {
                     layer.open({
                         type: 1,
                         title:false,
@@ -33,7 +33,7 @@
                         end:function(){
                             if(res.state){
                                 //注册成功跳转登录
-                                location.href = "/admin/login";
+                                location.href = "/user/login";
                             }
                         }
                     });

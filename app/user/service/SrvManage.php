@@ -1,23 +1,23 @@
 <?php
 namespace app\user\service;
 
-use app\user\model\ModArticle;
+use app\user\model\ModManage;
 
-class SrvArticle
+class SrvManage
 {
     public function __construct()
     {
-        $this->mod = new ModArticle();
+        $this->mod = new ModManage();
     }
 
-    public function listJson($params)
+    public function articleList($params)
     {
         if ($params['page'] < 0) {
             $params['page'] = 1;
         }
         !$params['limit'] && $params['limit'] = 15;
 
-        return $this->mod->listJson($params);
+        return $this->mod->articleList($params);
     }
 
     public function getArticle($id)

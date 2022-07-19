@@ -49,6 +49,6 @@ class CtlLogin
     public function logout()
     {
         $this->srv->logout();
-        return redirect('/admin/index');
+        return redirect('/index');
     }
 }

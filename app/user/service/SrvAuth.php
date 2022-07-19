@@ -186,27 +186,27 @@ class SrvAuth
         return array(
             'index' => array(
                 array(
-                    'title' => '博客管理',
-                    'icon' => 'laptop',
+                    'title' => '博客文章',
+                    'icon' => 'pencil',
                     'href' => '',
                     'spread' => true,
                     'children' => array(
                         array(
-                            'title' => '文章列表',
-                            'icon' => 'laptop',
-                            'href' => '/admin/article/articleList',
+                            'title' => '文章',
+                            'icon' => 'list',
+                            'href' => '/user/manage/article',
                             'spread' => true,
                         ),
                         array(
-                            'title' => '评论审查',
-                            'icon' => 'laptop',
-                            'href' => '/notepad/index/noteDetails',
+                            'title' => '评论',
+                            'icon' => 'commenting-o',
+                            'href' => '/user/manage/comment',
                             'spread' => false,
                         ),
                         array(
-                            'title' => '标签管理',
-                            'icon' => 'laptop',
-                            'href' => '',
+                            'title' => '分类',
+                            'icon' => 'th-large',
+                            'href' => '/user/manage/category',
                             'spread' => false,
                         ),
                     ),

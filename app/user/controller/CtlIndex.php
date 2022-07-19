@@ -6,7 +6,7 @@ use app\user\service\SrvAuth;
 
 class CtlIndex extends Controller
 {
-    protected $middleware = ['admin'];
+    protected $middleware = ['user'];
 
     public function console(){
         return view('/console');

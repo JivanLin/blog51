@@ -1,32 +1,31 @@
 <?php
 namespace app\user\controller;
 
-use app\user\service\SrvArticle;
+use app\user\service\SrvManage;
 use app\user\service\SrvAuth;
 
-class CtlArticle extends CtlIndex
+class CtlManage
 {
-    protected $middleware = ['admin'];
-    protected $srv;
+    protected $middleware = ['user'];
 
     public function __construct()
     {
         $this->request = Request();
-        $this->srv = new SrvArticle();
+        $this->srv = new SrvManage();
+    }
+
+    public function article()
+    {
+        return view('manage/article');
     }
 
     public function articleList()
-    {
-        return view('article/list');
-    }
-
-    public function listJson()
     {
         $params = [
             'page' => $this->request->param('page', 1),
             'limit' => $this->request->param('limit', 15),
         ];
-        return $this->srv->listJson($params);
+        return $this->srv->articleList($params);
     }
 
     public function add()
