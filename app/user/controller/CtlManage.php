@@ -21,42 +21,34 @@ class CtlManage
 
     public function articleList()
     {
-        $params = [
-            'page' => $this->request->param('page', 1),
-            'limit' => $this->request->param('limit', 15),
-        ];
-        return $this->srv->articleList($params);
+        $page = $this->request->param('page');
+        $limit = $this->request->param('limit');
+        return $this->srv->articleList($page, $limit);
     }
 
-    public function add()
+    public function addArticle()
     {
         $id = $this->request->param('id', 0);
-        $out = [];
-        if ($id) {
-            $out['data'] = $this->srv->getArticle($id);
-        }
-        return view('article/addArticle', $out);
+        $out['data'] = $this->srv->getArticle($id);
+        return view('manage/addArticle', $out);
     }
 
-    public function addAction()
+    public function addArticleAction()
     {
         $post = $this->request->post();
-        $params = [
-            'id' => $post['id'],
-            'title' => $post['title'],
-            'describe' => $post['describe'],
-            'content' => $post['content-md'],
-            'atime' => time(),
-            'aid' => SrvAuth::get_cookie('id', true),
-        ];
-        return $this->srv->addAction($params);
+        return $this->srv->addArticleAction($post);
     }
 
-    public function updateStatus()
+    public function articlePublish()
     {
         $id = $this->request->param('id');
-        $opt = $this->request->param('opt');
-        return $this->srv->updateStatus($id, $opt);
+        return $this->srv->articlePublish($id);
+    }
+
+    public function delArticle()
+    {
+        $id = $this->request->param('id');
+        return $this->srv->delArticle($id);
     }
 
 }

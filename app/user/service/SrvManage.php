@@ -2,7 +2,6 @@
 namespace app\user\service;
 
 use app\user\model\ModManage;
-
 class SrvManage
 {
     public function __construct()
@@ -10,49 +9,68 @@ class SrvManage
         $this->mod = new ModManage();
     }
 
-    public function articleList($params)
+    public function articleList($page, $limit)
     {
-        if ($params['page'] < 0) {
-            $params['page'] = 1;
+        $data = $this->mod->articleList($page, $limit);
+        $list = $data['list'];
+        foreach($list as $key => &$value) {
+            $value['tags'] = explode(',', $value['tags']);
         }
-        !$params['limit'] && $params['limit'] = 15;
-
-        return $this->mod->articleList($params);
+        $data['list'] = $list;
+        return $data;
     }
 
     public function getArticle($id)
     {
+        if(!$id) {
+            return [];
+        }
         return $this->mod->getArticle($id);
     }
 
-    public function addAction($data)
+    public function addArticleAction($params)
     {
+        $data = [
+            'id' => $params['id'],
+            'title' => $params['title'],
+            'describe' => $params['describe'],
+            'content' => $params['content-md'],
+            'aid' => SrvAuth::get_cookie('id'),
+        ];
+
         if (!$data['title'] || !$data['content']) {
             return fail('缺少必要参数');
         }
 
-        $res = $this->mod->addAction($data);
-        if ($res !== false) {
-            return success('', '提交成功');
+        $ret = $this->mod->addArticleAction($data);
+        if ($ret) {
+            return success('', '保存成功');
         }
-        return fail('提交失败');
+        return fail('保存失败');
     }
 
-    public function updateStatus($id, $opt)
+    public function articlePublish($id)
     {
-        $update = [];
         $where = ['id' => $id];
-        if ($opt == 0) {
-            $update = ['status' => 1];
+        $update = [
+            'status' => 1,
+            'atime' => time(),
+        ];
+        $ret = $this->mod->updateArticle($where, $update);
+        if ($ret) {
+            return success('', '发布成功');
         }
-        if ($opt == 1) {
-            $update = ['status' => 2];
+        return fail('发布失败，请等待技术排查');
+    }
+
+    public function delArticle($id)
+    {
+        $where = ['id' => $id];
+        $ret = $this->mod->delArticle($where);
+        if ($ret) {
+            return success('', '删除成功');
         }
-        $res = $this->mod->updateStatus($update, $where);
-        if ($res) {
-            return success('', '成功');
-        }
-        return fail('失败');
+        return fail('删除失败，请等待技术排查');
     }
 
 }

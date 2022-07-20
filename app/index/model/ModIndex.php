@@ -13,6 +13,6 @@ class ModIndex extends Model
 
     public function getArticleList()
     {
-        return Db::name('article')->where('status',2)->paginate(10);
+        return Db::name('article')->where('status',1)->paginate(10);
     }
 }

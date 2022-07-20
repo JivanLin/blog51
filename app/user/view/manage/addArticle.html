@@ -11,16 +11,10 @@
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">* 文章描述：</label>
-                    <div class="layui-input-inline" style="width: 420px">
-                        <input type="text" class="layui-input" autocomplete="off" name="describe" value="{$data.describe|default = ''}">
+                    <div class="layui-input-inline" style="width: 360px;height: 100px">
+                        <textarea placeholder="文章描述或摘要" class="layui-textarea" name="describe">{$data.describe|default = ''}</textarea>
                     </div>
                 </div>
-                <!--<div class="layui-form-item">
-                    <label class="layui-form-label">* 文章内容：</label>
-                    <div class="layui-input-inline" style="width: 60%">
-                        <textarea id="content" name="content" style="display: none;"></textarea>
-                    </div>
-                </div>-->
                 <div class="layui-form-item" id="content-md">
                     <textarea id="content" name="content-md" style="display:none;">{$data.content|default=''}</textarea>
                 </div>
@@ -53,8 +47,8 @@
 
         //富文本编辑器 editor_md
         var editor_md = editormd("content-md", {
-            width : "70%",   // 宽
-            height : "90%",    // 高
+            width : "60%",   // 宽
+            height : "70%",    // 高
             path : "/static/editormd/lib/",    // 加载编辑器lib路径
             // saveHTMLToTextarea : true,
             emoji : true,
@@ -65,19 +59,13 @@
             // htmlDecode : "style,script,iframe",
         });
 
-        layui.use(['table','form','layedit'], function(){
-            var table = layui.table,
-                form = layui.form,
-                layedit = layui.layedit;
+        layui.use(['form'], function(){
+            var form = layui.form
 
             //监听提交
             form.on('submit(formDemo)', function(data){
-                // data.field.contentType = 0; //富文本编辑器 0:editor_md；1：layedit
-                // data.field['content-layui'] = layedit.getContent(content_lay);
-                // delete data.field.file; //参数为layedit编辑器自带
-                // console.log(data.field);
                 $.ajax({
-                    url: "/admin/article/addAction"
+                    url: "/user/manage/addArticleAction"
                     ,type: "POST"
                     ,data: data.field
                     ,dataType: "json"

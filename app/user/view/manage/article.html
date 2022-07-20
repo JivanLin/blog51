@@ -5,12 +5,12 @@
         max-height: 100px;
     }
 </style>
-    <div class="layui-fluid ">
+    <div class="layui-fluid">
         <div class="layui-card">
             <form class="layui-form layui-card-header layuiadmin-card-header-auto my-layui-form">
                 <div class="layui-inline layui-btn-group">
                     <!--<button type="button" class="layui-btn layui-btn-sm" lay-submit lay-filter="filter-search"> 筛 选 </button>-->
-                    <button type="button" class="layui-btn layui-btn-sm layui-btn-normal add">添加</button>
+                    <button type="button" class="layui-btn layui-btn-sm layui-btn-normal add">写文章</button>
                 </div>
             </form>
             <div class="layui-card-body">
@@ -21,37 +21,37 @@
                         <button type="button" class="layui-btn layui-btn-xs layui-btn-normal" lay-event="edit">编辑</button>
                         {{# if(d.status == 0){ }}
                         <button type="button" class="layui-btn layui-btn-xs layui-btn" lay-event="publish">发布</button>
-                        <button type="button" class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</button>
-                        {{# } else { }}
-                        <button type="button" class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</button>
                         {{# } }}
-                        <button type="button" class="layui-btn layui-btn-xs layui-btn-primary" lay-event="preview">预览</button>
+                        <button type="button" class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</button>
                     </div>
                 </script>
             </div>
         </div>
     </div>
 
+<link rel="stylesheet" href="/static/editormd/css/editormd.css" media="all">
+<script type="text/javascript" src="/static/editormd/editormd.js"></script>
+<script type="text/javascript" src="/static/editormd/lib/marked.min.js"></script>
+<script type="text/javascript" src="/static/editormd/lib/prettify.min.js"></script>
     <script>
-
         layui.use(['table','form','util'], function() {
             var table = layui.table,
-                form = layui.form,
-                util = layui.util;
+                form = layui.form;
 
             table.render({
                 elem: "#my-table"
                 , size: 'sm'
+                , even: true
                 // ,height: 312
                 // ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，
                 , url: "/user/manage/articleList" //数据接口
                 , cols: [[ //表头
-                    {field: 'title', title: '标题', width: 360}
-                    , {field: 'author', title: '作者', width: 80}
-                    , {field: 'describe', title: '简述', width: 200}
-                    // , {field: 'content', title: '内容', width: 500}
-                    , {field: 'atime', title: '时间', width: 150}
-                    , {field: 'opt', title: '操作', width: 200, align: 'center', toolbar: '#my-operate'}
+                    { field: 'title', title: '标题', width: 360 }
+                    , { field: 'author', title: '作者', width: 80 }
+                    , { field: 'describe', title: '简述', width: 200 }
+                    , { field: 'status_type', title: '状态', width: 80, align: 'center' }
+                    , { field: 'atime', title: '时间', width: 150, align: 'center' }
+                    , { field: 'opt', title: '操作', width: 200, align: 'center', toolbar: '#my-operate' }
                 ]]
                 , page: {
                     layout: ['prev', 'page', 'next', 'skip', 'count']
@@ -62,6 +62,7 @@
                     var list = res.list
                     for (var i = 0; i < list.length; i++) {
                         list[i].atime = formatDateTime(list[i].atime)
+                        list[i].status_type = list[i].status ? '已发布' : '草稿';
                     }
                     return {
                         "code": 0,
@@ -90,7 +91,7 @@
                 tool[obj.event](data);
             });
 
-            //文章发表
+            //写文章
             $('.add').click(function () {
                 tool.edit(this);
             });
@@ -98,7 +99,7 @@
             var tool = {
                 //文章编辑
                 edit: function (data) {
-                    var api = "/admin/article/add?id=" + data.id;
+                    var api = "/user/manage/addArticle?id=" + data.id;
                     var txt = '编辑文章';
 
                     var index = layui.layer.open({
@@ -113,29 +114,43 @@
                         layui.layer.full(index);
                     })
                 },
-                //文章发布
+                //文章预览发布
                 publish: function (data) {
-                    layer.confirm('确定发布此文章吗？', function (index) {
-                        $.post('/admin/article/updateStatus', {id: data.id, opt: 0}, function (re) {
-                            // layer.close(index);
-                            layer.open({
-                                type: 1,
-                                title: false,
-                                closeBtn: 0,
-                                shadeClose: true,
-                                content: '<p style="margin:15px 30px;">' + re.msg + '</p>',
-                                time: 1000,
-                                end: function () {
+                    layer.open({
+                        type: 1,
+                        title: '文章预览',
+                        btn: ['发布'],
+                        shadeClose: true,
+                        maxmin: true,
+                        area: ['30%', '100%'],
+                        offset: 'r',
+                        content: '<div id="read-editormd">\n' +
+                                    '<textarea id="append-test">'+data.content+'</textarea>\n' +
+                                 '</div>',
+                        success: function () {
+                            editormd.markdownToHTML("read-editormd", {
+                                width : "80%",
+                                htmlDecode: "style,script,iframe",
+                                emoji: true,
+                                taskList: true,
+                            })
+                        },
+                        yes:function(){
+                            $.post('/user/manage/articlePublish', {id: data.id}, function (re) {
+                                // layer.close(index);
+                                layer.msg(re.msg, {
+                                    time: 1000
+                                }, function() {
                                     location.reload();
-                                }
-                            });
-                        }, 'json');
+                                });
+                            }, 'json');
+                        },
                     });
                 },
                 //文章删除
                 del: function (data) {
                     layer.confirm('确定删除此文章吗？', function (index) {
-                        $.post('/admin/article/updateStatus', {id: data.id, opt: 1}, function (re) {
+                        $.post('/user/manage/delArticle', {id: data.id}, function (re) {
                             // layer.close(index);
                             layer.open({
                                 type: 1,
@@ -151,12 +166,10 @@
                         }, 'json');
                     });
                 },
-                //文章预览
-                preview: function (data) {
-                    var url = "/admin/article/details?id="+data.id
-                    window.open(url);
-                }
             };
         });
     </script>
+<style>
+    .editormd-html-preview{width:90%}
+</style>
 {include file="public/foot"}
