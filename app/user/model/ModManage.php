@@ -31,6 +31,7 @@ class ModManage
         if ($params['id']) {
             $where = ['id' => $params['id']];
             unset($params['id']);
+            $params['status'] = 0;
             return $this->updateArticle($where, $params);
         } else {
             $params['atime'] = time();

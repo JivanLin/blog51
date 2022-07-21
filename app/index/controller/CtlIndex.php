@@ -15,7 +15,9 @@ class CtlIndex extends Controller
 
     public function index()
     {
-        $out['list'] = $this->srv->getArticleList();
+        $data = $this->srv->getArticleList();
+        $out['list'] = $data['list'];
+        $out['page'] = $data['page'];
         return view('/index/index', $out);
     }
 

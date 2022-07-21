@@ -6,13 +6,13 @@ use think\Model;
 
 class ModIndex extends Model
 {
-    public function getArticle($id)
+    public function getArticle($where)
     {
-        return Db::name('article')->where('id',$id)->find();
+        return Db::name('article')->where($where)->find();
     }
 
-    public function getArticleList()
+    public function getArticleList($limit = 15)
     {
-        return Db::name('article')->where('status',1)->paginate(10);
+        return Db::name('article')->order('atime', 'desc')->paginate($limit);
     }
 }

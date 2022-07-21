@@ -12,11 +12,20 @@ class SrvIndex
 
     public function getArticle($id)
     {
-        return $this->mod->getArticle($id);
+        $where = [
+            'id' => $id
+        ];
+        return $this->mod->getArticle($where);
     }
 
     public function getArticleList()
     {
-        return $this->mod->getArticleList();
+        $data = $this->mod->getArticleList(8);
+        $list = $data->items();
+        $page = $data->render();
+        return array(
+            'list' => $list,
+            'page' => $page,
+        );
     }
 }

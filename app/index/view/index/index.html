@@ -1,11 +1,51 @@
 {extend name="public/base" /}
+{block name="style"}
+<style>
+    .c_b_p_desc {
+        word-wrap: break-word;
+        word-break: break-all;
+        overflow: hidden;
+        max-height: 120px;
+    }
+</style>
+{/block}
 {block name="main"}
 <div class="forFlow">
+
+    {foreach $list as $item}
+    <div class="day" role="article" aria-describedby="{$item.id}">
+        <div class="postTitle" role="heading">
+            <a class="postTitle2 vertical-middle" href="/index/index/details?id={$item.id}">
+                <span>{$item.title}</span>
+            </a>
+        </div>
+        <div class="postCon">
+            <div class="c_b_p_desc" id="{$item.id}">
+                摘要：{$item.describe}
+            </div>
+        </div>
+        <div class="clear"></div>
+
+        <div class="postDesc">
+            <span data-post-id="{$item.id}" class="post-view-count"></span>
+            <span data-post-id="{$item.id}" class="post-comment-count"></span>
+            <span data-post-id="{$item.id}" class="post-digg-count"></span>
+            <a href="#" rel="nofollow">编辑</a>
+        </div>
+        <script>
+            $(".post-view-count[data-post-id='{$item.id}']").text("阅读({$item.browse})")
+            $(".post-comment-count[data-post-id='{$item.id}']").text("评论({$item.comment})")
+            $(".post-digg-count[data-post-id='{$item.id}']").text("推荐({$item.praise})")
+        </script>
+
+        <div class="clear"></div>
+    </div>
+    {/foreach}
 
     <div class="topicListFooter">
         <!--<div id="nav_next_page">-->
         <div style="text-align: center;">
-            {$list|raw}
+            {$page|raw}
         </div>
         <style>
             .pagination {
@@ -51,47 +91,5 @@
         </style>
     </div>
 
-    {foreach $list as $item}
-    <div class="day" role="article" aria-describedby="{$item.id}">
-        <div class="postTitle" role="heading">
-            <a class="postTitle2 vertical-middle" href="/index/index/details?id={$item.id}">
-                <span>{$item.title}</span>
-            </a>
-        </div>
-        <div class="postCon">
-            <div class="c_b_p_desc" id="{$item.id}">
-                摘要：{$item.describe}
-                <a href="/index/index/details?id={$item.id}" class="c_b_p_desc_readmore">阅读全文</a>
-            </div>
-        </div>
-        <div class="clear"></div>
-
-        <div class="postDesc">
-            posted @ 2021-10-04 20:30 linxiaohei
-            <span data-post-id="{$item.id}" class="post-view-count"></span>
-            <span data-post-id="{$item.id}" class="post-comment-count"></span>
-            <span data-post-id="{$item.id}" class="post-digg-count"></span>
-            <a href="#" rel="nofollow">编辑</a>
-        </div>
-        <div class="clear"></div>
-    </div>
-    {/foreach}
-
-    <script>
-        updatePostStats(
-            $(".post-view-count").map(function () {
-                return this.dataset.postId
-            }).get(),
-            function (id, count) {
-                $(".post-view-count[data-post-id=" + id + "]").text("阅读(" + count + ")")
-            },
-            function (id, count) {
-                $(".post-comment-count[data-post-id=" + id + "]").text("评论(" + count + ")")
-            },
-            function (id, count) {
-                $(".post-digg-count[data-post-id=" + id + "]").text("推荐(" + count + ")")
-            }
-        );
-    </script>
 </div>
 {/block}

@@ -1,46 +1,60 @@
 {extend name="public/base" /}
 
-{block name="importFile"}
-<link rel="stylesheet" href="__STATIC__/index/essay.css">
-<link rel="stylesheet" href="__STATIC__/index/essay.css">
+{block name="style"}
 <link rel="stylesheet" href="/static/editormd/css/editormd.css" media="all">
-<script type="text/javascript" src="/static/editormd/editormd.js"></script>
+<style>
+    .editormd-html-preview blockquote {border-left: 4px solid #1B86F9;}
+    .editormd-html-preview ol.linenums{width: 100%}
+    .markdown-body img{border-radius: 10px;width: 600px;height: auto;}
+</style>
 {/block}
 
 {block name="main"}
 <div class="forFlow">
     <div id="post_detail">
-<div class="essay-detail">
-    <div id="topics">
-        <div class="post">
-            <h1 class="postTitle">{$data.title}</h1>
-            <div class="clear"></div>
-            <div class="postBody">
-                <div id="cnblogs_post_body" class="blogpost-body cnblogs-markdown">
-                    {$data.content|raw}
-                </div>
+        <div id="topics">
+            <div class="post">
+                <h1 class="postTitle">
+                    {$data.title}
+                </h1>
                 <div class="clear"></div>
-                <div id="blog_post_info_block" role="contentinfo">
-                    <div id="blog_post_info"></div>
+                <div class="postBody">
+                    <div id="cnblogs_post_body" class="blogpost-body">
+                        <textarea>{$data.content}</textarea>
+                    </div>
                     <div class="clear"></div>
-                    <div id="post_next_prev"></div>
+                    <!--<div id="blog_post_info_block" role="contentinfo">
+                        <div id="blog_post_info"></div>
+                        <div class="clear"></div>
+                        <div id="post_next_prev"></div>
+                    </div>
+                    <div class="postDesc">
+                    </div>-->
                 </div>
             </div>
         </div>
     </div>
 </div>
-    </div>
-</div>
 {/block}
 
 {block name="script"}
+<script type="text/javascript" src="/static/editormd/editormd.js"></script>
+<script type="text/javascript" src="/static/editormd/lib/marked.min.js"></script>
+<script type="text/javascript" src="/static/editormd/lib/prettify.min.js"></script>
 <script>
-    opts.postSignature = {
-        enable: true,
-            enableLicense: true,
-            licenseName: '',
-            licenseLink: '',
-            content: ['三个最受欢迎主题可选', '三个最受欢迎主题可选'],
-    };
+    editormd.markdownToHTML("cnblogs_post_body", {
+        // width : "80%",
+        htmlDecode: "style,script,iframe",
+        emoji: true,
+        taskList: true,
+    })
+    // opts.postSignature = {
+    //     enable: true,
+    //     enableLicense: true,
+    //     licenseName: '', //版权申明 采用xx许可证
+    //     licenseLink: '', //版权链接
+    //     contents: ['三个最受欢迎主题可选', '三个最受欢迎主题可选'],
+    //     //可自定义变量，js里边进行修改添加
+    // };
 </script>
 {/block}

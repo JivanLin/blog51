@@ -29,15 +29,47 @@
 
             <div id="sideBar">
                 <div id="sideBarMain">
-                    <div id="sidebar_news" class="newsItem">
-                        <script>loadBlogNews();</script>
-                    </div>
                     <div id="sidebar_c3"></div>
-                    <div id="blog-calendar" style="display:none"></div>
-                    <script>loadBlogDefaultCalendar();</script>
                     <div id="leftcontentcontainer">
-                        <div id="blog-sidecolumn"></div>
-                        <script>loadBlogSideColumn();</script>
+                        <div id="blog-sidecolumn">
+                            <!--css样式：sidebar-block标签方块；catListTitle标签标题；其余css仿照-->
+                            <!--<div id="sidebar_shortcut" class="sidebar-block">
+                                <div class="catListLink">
+                                    <h3 class="catListTitle">常用链接</h3>
+                                    <ul>
+                                        <li><a href="https://www.cnblogs.com/guangzan/p/" title="我的博客的随笔列表">我的随笔</a></li>
+                                        <li><a href="https://www.cnblogs.com/guangzan/MyComments.html" title="我的发表过的评论列表">我的评论</a></li>
+                                        <li><a href="https://www.cnblogs.com/guangzan/OtherPosts.html" title="我评论过的随笔列表">我的参与</a></li>
+                                        <li><a href="https://www.cnblogs.com/guangzan/comments" title="我的博客的评论列表">最新评论</a></li>
+                                        <li><a href="https://www.cnblogs.com/guangzan/tag/" title="我的博客的标签列表">我的标签</a></li>
+                                    </ul>
+                                </div>
+                            </div>-->
+                            <div id="sidebar_recentposts" class="sidebar-block">
+                                <div class="catListEssay">
+                                    <h3 class="catListTitle">最新随笔</h3>
+                                    <ul>
+                                        <li><a href="javascript:;">1.fatal: Unable to create .git/index.lock: File exists.</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="sidebar-block">
+                                <div>
+                                    <h3 class="catListTitle">文章分类</h3>
+                                    <ul>
+                                        <li><a href="javascript:;">cnblog</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div id="sidebar_toptags" class="sidebar-block">
+                                <div>
+                                    <h3 class="catListTitle">文章标签</h3>
+                                    <ul>
+                                        <li><a href="javascript:;">PHP</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
