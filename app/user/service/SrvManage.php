@@ -35,7 +35,7 @@ class SrvManage
             'title' => $params['title'],
             'describe' => $params['describe'],
             'content' => $params['content-md'],
-            'aid' => SrvAuth::get_cookie('id'),
+            'author_id' => SrvAuth::get_cookie('id'),
         ];
 
         if (!$data['title'] || !$data['content']) {

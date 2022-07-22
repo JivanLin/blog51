@@ -7,7 +7,7 @@ class ModArticle
 {
     public function listJson($params)
     {
-        $sql = Db::name('article')->field('a.*,b.nick as author')->alias('a')->leftJoin('admin b', 'a.aid = b.id')->where('status', '<>', 2);
+        $sql = Db::name('article')->field('a.*,b.nick as author')->alias('a')->leftJoin('admin b', 'a.author_id = b.id')->where('status', '<>', 2);
         $count = Db::name('article')->where('status', '<>', 2)->count();
 
         if (!$count) {
@@ -20,7 +20,7 @@ class ModArticle
 
     public function getArticle($id)
     {
-        return Db::name('article')->field('a.*,b.nick as author')->alias('a')->leftJoin('admin b', 'a.aid = b.id')->where('a.id', '=', $id)->find();
+        return Db::name('article')->field('a.*,b.nick as author')->alias('a')->leftJoin('admin b', 'a.author_id = b.id')->where('a.id', '=', $id)->find();
     }
 
     public function addAction($params)

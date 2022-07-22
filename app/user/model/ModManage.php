@@ -7,8 +7,8 @@ class ModManage
 {
     public function articleList($page,$limit)
     {
-        $sql = Db::name('article')->field('a.id,a.aid,a.title,a.describe,a.status,a.atime,a.tags,a.content,b.nick as author')
-            ->alias('a')->leftJoin('admin b', 'a.aid = b.id');
+        $sql = Db::name('article')->field('a.id,a.author_id,a.title,a.describe,a.status,a.atime,a.tags,a.content,b.nick as author')
+            ->alias('a')->leftJoin('admin b', 'a.author_id = b.id');
         $count = Db::name('article')->count();
 
         if (!$count) {
@@ -23,7 +23,7 @@ class ModManage
 
     public function getArticle($id)
     {
-        return Db::name('article')->field('a.*,b.nick as author')->alias('a')->leftJoin('admin b', 'a.aid = b.id')->where('a.id', '=', $id)->find();
+        return Db::name('article')->field('a.*,b.nick as author')->alias('a')->leftJoin('admin b', 'a.author_id = b.id')->where('a.id', '=', $id)->find();
     }
 
     public function addArticleAction($params)

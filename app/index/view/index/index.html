@@ -30,7 +30,7 @@
             <span data-post-id="{$item.id}" class="post-view-count"></span>
             <span data-post-id="{$item.id}" class="post-comment-count"></span>
             <span data-post-id="{$item.id}" class="post-digg-count"></span>
-            <a href="#" rel="nofollow">编辑</a>
+            <a href="/user/manage/addArticle?id={$item.id}" rel="nofollow">编辑</a>
         </div>
         <script>
             $(".post-view-count[data-post-id='{$item.id}']").text("阅读({$item.browse})")
